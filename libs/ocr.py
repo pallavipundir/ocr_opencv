@@ -3,23 +3,19 @@
 
 
 def strip_non_ascii(string):
-    ''' Returns the string without non ASCII characters'''
     stripped = (c for c in string if 0 < ord(c) < 127)
     return ''.join(stripped)
 
-def ocr_main(img_file,preprocess) :
+def ocr_default(img_file,preprocess) :
 	from PIL import Image
 	import pytesseract
 	import cv2
 	import os , re
 
-	# load the example image and convert it to grayscale
+	# Load image, resize width and height & then convert to grayscale
 	image = cv2.imread(img_file)
 	height, width = image.shape[:2]
-
-	
 	image = cv2.resize(image, (width*2, height), interpolation = cv2.INTER_AREA) 
-
 
 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
