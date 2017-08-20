@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: UTF-8 -*-
+# -*- coding: UTF-8 -*- #
 
 import os , datetime , logging
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
@@ -34,7 +34,6 @@ def upload():
 
         files = app.config['UPLOAD_FOLDER']+'/'+filename
         text = ocr_default(files,"thresh").encode('utf-8')
-
         imgo = {
             'src': 'images/'+filename,
             'text': text,
@@ -50,6 +49,7 @@ def uploaded_file(filename):
 timez = datetime.datetime.now()
 logfile = timez.strftime('%d.%b.%Y')
 logging.basicConfig(filename='logs/'+logfile+'.log', filemode='w', level=logging.DEBUG)
+
 
 if __name__ == '__main__':
     app.run(
