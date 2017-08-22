@@ -15,7 +15,7 @@ def ocr_default(img_file,preprocess) :
 	# Load image, resize width and height & then convert to grayscale
 	image = cv2.imread(img_file)
 	height, width = image.shape[:2]
-	image = cv2.resize(image, (width*2, height*4), interpolation = cv2.INTER_AREA) 
+	image = cv2.resize(image, (width*4, height*2), interpolation = cv2.INTER_AREA) 
 
 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
