@@ -15,7 +15,7 @@ def ocr_default(img_file,preprocess) :
 	# Load image, resize width and height & then convert to grayscale
 	image = cv2.imread(img_file)
 	height, width = image.shape[:2]
-	image = cv2.resize(image, (width*2, height), interpolation = cv2.INTER_AREA) 
+	image = cv2.resize(image, (width*6, height*3), interpolation = cv2.INTER_AREA) 
 
 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
@@ -35,8 +35,8 @@ def ocr_default(img_file,preprocess) :
 	# load the image as a PIL/Pillow image, apply OCR, and then delete the temporary file #
 	text = pytesseract.image_to_string(Image.open(filename))
 
-	text = re.sub('[^a-zA-Z0-9\s\n]+', '', text)
-	#print text
+	text = re.sub('[:/^a-zA-Z0-9\s\n]+','', text)
+	print text
 	os.remove(filename)
 
 	finaltext = strip_non_ascii(text)
