@@ -35,7 +35,7 @@ def ocr_default(img_file,preprocess) :
 	# load the image as a PIL/Pillow image, apply OCR, and then delete the temporary file #
 	text = pytesseract.image_to_string(Image.open(filename))
 
-	text = re.sub('[:/^a-zA-Z0-9\s\n]+','', text)
+	text = re.sub('[^a-zA-Z0-9\s\n]+','', text)
 	print text
 	os.remove(filename)
 
