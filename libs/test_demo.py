@@ -12,12 +12,12 @@ def test_default(img_file):
     import pytesseract
     import cv2
     import os , re
-    # image = cv2.imread(img_file,)
+    import numpy as np
+    #image = cv2.imread(img_file,)
     image = img_file
-    text = pytesseract.image_to_string(Image.open(image))
-#print text 
-
-    text = re.sub('[^a-zA-Z0-9\s\n/:]+','', text)
+    #print text 
+    text = pytesseract.image_to_string(Image.open(image),lang="eng").upper()
+    text = re.sub('[^a-zA-Z0-9\s\n/:-]+','', text)
     print text
 	#os.remove(filename)
 
