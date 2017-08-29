@@ -2,11 +2,11 @@ import subprocess
 import os
 
 # image name to load #
-filename = "12.09.51.PM_25.Aug.2017_dl1.png"
+filename = "01.42.12.PM_25.Aug.2017_aadhar4.jpg"
 
 # get current directry #
 pwd = os.getcwd()
-#print pwd
+print pwd
 # output text file path #
 output_text = os.path.join(pwd, "storage", "cache", filename+'.txt')
 #print output_text
@@ -21,8 +21,8 @@ output, error = process.communicate()
 # read output text file
 files = open(output_text+'.txt', "r") 
 final_text = files.read() 
+
 print final_text
 
 # remove temporary text file
 ## os.remove(output_text+'.txt')
-

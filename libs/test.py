@@ -31,9 +31,9 @@ def ocr_default(img_file,preprocess) :
     #elif preprocess == "blur":
      #   gray = cv2.medianBlur(gray, 3)
 
-    dst = cv2.fastNlMeansDenoisingColored(image,None,10,10,7,21)
-
-    b,g,r = cv2.split(dst)           # get b,g,r
+    dst = cv2.fastNlMeansDenoising(image,None,10,7,21)
+    dst1 = cv2.fastNlMeansDenoising(dst,None,10,7,21)
+    b,g,r = cv2.split(dst1)           # get b,g,r
     rgb_dst = cv2.merge([r,g,b])     # switch it to rgb
 
    
@@ -47,21 +47,15 @@ def ocr_default(img_file,preprocess) :
     # write the grayscale image to disk as a temporary file so we can apply OCR to it #
     filename = "{}.png".format(os.getpid())
     cv2.imwrite(filename, custom)
-    cv2.imwrite("F:/Softwares/dl/Image DL/test.png",custom )
-    edges = cv2.Canny(img,255,255)# canny edge detection
+    cv2.imwrite("E:/licence/img1.png",custom )
 
-    plt.subplot(121),plt.imshow(custom,cmap = 'gray')
-    plt.title('Original Image'), plt.xticks([]), plt.yticks([])
-    plt.subplot(122),plt.imshow(edges,cmap = 'gray')
-    plt.title('Edge Image'), plt.xticks([]), plt.yticks([])
-    text=text.split
     # load the image as a PIL/Pillow image, apply OCR, and then delete the temporary file #
     text = pytesseract.image_to_string(Image.open(filename)).upper()
-    if text=="%d/%m/%Y":
-        text=text.replace("/","-")
+    #if text=="%d/%m/%Y":
+     #   text=text.replace("/","-")
     #text=text.replace("/","-")
-    text = re.sub('[^a-zA-Z0-9,\s\n:/-''^.*\/]+[/]*','', text)
-    text=text.replace(r'/', '-')
+    text = re.sub('[^a-zA-Z0-9,\s\n:/-''^.*\/]+','', text)
+    #text=text.replace(r'/', '-')
     #text=re.sub('[0-9]+/[0-9]+/[0-9]','',text)
    # re.match('^[A-Za-z0-9.,:;!?()\s]+$', str)
     #text = re.sub("[/]","-", text)
@@ -76,11 +70,11 @@ def ocr_default(img_file,preprocess) :
        # text=text.replace("/","-")
     #os.remove(filename)
 
-    #finaltext = strip_non_ascii(text)
-    # print finaltext
+    finaltext = strip_non_ascii(text)
+    print finaltext
     # show the output images
     # cv2.imshow("Image", image)
     # cv2.imshow("Output", gray)
     #cv2.waitKey(0)
 
-    return tesseractResult
+    return finaltext
