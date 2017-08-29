@@ -32,7 +32,7 @@ def ocr_default(img_file,preprocess) :
      #   gray = cv2.medianBlur(gray, 3)
 
     dst = cv2.fastNlMeansDenoising(image,None,10,7,21)
-    dst1 = cv2.fastNlMeansDenoising(dst,None,10,7,21)
+    dst1 = cv2.fastNlMeansDenoising(dst,None,7,5,17)
     b,g,r = cv2.split(dst1)           # get b,g,r
     rgb_dst = cv2.merge([r,g,b])     # switch it to rgb
 
