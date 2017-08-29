@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+          rel="stylesheet">
+          <title>OCR POC</title>
+  </head>
+  <body><center>
+
+    <div class="container">
+      <div class="header">
+        {% if img is defined %}
+        <h3 class="text-muted">Image Output</h3>
+        {% else %}
+        <h3 class="text-muted">Upload Any Image File</h3>
+        {% endif %}
+      </div>
+      <hr/>
+      <div>
+          {% if img is defined %}
+          <h4><a href="/" title"Go back">[[ Try New Image ]]</a></h4>
+          {% else %}
+          <form action="images" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" value="Choose Your File"><br /><br />
+            <input type="submit" value="Upload">
+          </form><br><br>
+          {% endif %}
+      </div>
+
+    </div>
+    <br>
+
+    {% if img %}
+      <div>
+        <img src="{{ img.src }}" title="Uploaded Image" style="max-height: 200px;max-width: auto;">
+        </td>
+        <br><br>
+      </div>
+        <div>
+        <pre>{{ img.text }} </pre>
+        </div>
+        {% endif %}
+
+  </center>
+  </body>
+</html>
