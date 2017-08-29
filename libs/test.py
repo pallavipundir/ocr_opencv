@@ -11,11 +11,12 @@ def ocr_default(img_file,preprocess) :
     import cv2
     import os , re
     import numpy as np
+    import commands
 
     # Load image, resize width and height & then convert to grayscale
     image = cv2.imread(img_file)
     height, width = image.shape[:2]
-    image = cv2.resize(image, (width*2, height*2), interpolation = cv2.INTER_AREA) 
+    image = cv2.resize(image, (width*1, height*1), interpolation = cv2.INTER_AREA) 
 
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
@@ -28,7 +29,7 @@ def ocr_default(img_file,preprocess) :
     elif preprocess == "blur":
         gray = cv2.medianBlur(gray, 3)
 
-    dst = cv2.fastNlMeansDenoisingColored(image,None,5,5,3,14)
+    dst = cv2.fastNlMeansDenoising(image,None,10,7,21)
 
     b,g,r = cv2.split(dst)           # get b,g,r
     rgb_dst = cv2.merge([r,g,b])     # switch it to rgb
@@ -39,23 +40,28 @@ def ocr_default(img_file,preprocess) :
     boxFilter=np.ones((5,5),np.float32)/81.0 # default is 81.0 Blurs an image using the box filter.
     kernel=kernel-boxFilter
     custom=cv2.filter2D(rgb_dst,-1,kernel)
-    cv2.imwrite("F:/Softwares/pan and dl/dl/img.jpg",custom)
+    cv2.imwrite("E:/licence/img.jpg",custom)
+    
     # write the grayscale image to disk as a temporary file so we can apply OCR to it #
     filename = "{}.png".format(os.getpid())
     cv2.imwrite(filename, custom)
+    dst = cv2.fastNlMeansDenoising(image,None,10,7,21)
 
     # load the image as a PIL/Pillow image, apply OCR, and then delete the temporary file #
-    text = pytesseract.image_to_string(Image.open(filename)).upper()
-
-    text = re.sub('[^a-zA-Z0-9,\s\n:/-]+', ' ', text)
+    #text = pytesseract.image_to_string(Image.open(filename), lang='eng').upper()
+    tesseractResult = str(commands.getstatusoutput('tesseract ' + E:/licence + '/' + img.jpg + ' -  -psm 0'))
+    #text = re.sub('[^a-zA-Z0-9,\s\n:/-]+', ' ', text)
+    #text=text.replace("/","-")
     #print text
-    os.remove(filename)
+    #if text=="%d/%m%Y":
+       # text=text.replace("/","-")
+    #os.remove(filename)
 
-    finaltext = strip_non_ascii(text)
+    #finaltext = strip_non_ascii(text)
     # print finaltext
     # show the output images
     # cv2.imshow("Image", image)
     # cv2.imshow("Output", gray)
     #cv2.waitKey(0)
 
-    return finaltext
+    return tesseractResult
