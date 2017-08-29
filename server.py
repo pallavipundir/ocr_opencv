@@ -46,6 +46,7 @@ def uploaded_file(filename):
 
 timez = datetime.datetime.now()
 logfile = timez.strftime('%d.%b.%Y')
+
 logging.basicConfig(filename='logs/'+logfile+'.log', filemode='w', level=logging.DEBUG)
 
 

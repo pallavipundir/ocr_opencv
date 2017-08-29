@@ -15,6 +15,7 @@ def test_default(img_file):
     import numpy as np
     #image = cv2.imread(img_file,)
     image = img_file
+    image, contours, hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     #print text 
     text = pytesseract.image_to_string(Image.open(image),lang="eng").upper()
     text = re.sub('[^a-zA-Z0-9\s\n/:-]+','', text)
