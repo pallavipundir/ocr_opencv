@@ -2,13 +2,13 @@ import subprocess
 import os
 
 # image name to load #
-filename = "04.42.50.PM_28.Aug.2017_dl1.png"
+filename = "11.50.05.AM_24.Aug.2017_dl18.jpg"
 
 # get current directry #
 pwd = os.getcwd()
 print pwd
 # output text file path #
-output_text = os.path.join(pwd, filename+'.txt')
+output_text = os.path.join(pwd, "storage", "cache", filename+'.txt')
 #print output_text
 # command for cli => tessearct image_file output_text_file
 cmdCommand = "tesseract "+os.path.join(pwd,"storage", "files", filename)+" "+output_text

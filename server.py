@@ -9,7 +9,7 @@ from libs.test import ocr_default
 app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = 'storage/files/'
-app.config['ALLOWED_EXTENSIONS'] = set([ 'png', 'jpg', 'jpeg','PNG','JPG' ])
+app.config['ALLOWED_EXTENSIONS'] = set([ 'png', 'jpg', 'jpeg','PNG','JPG','JPEG' ])
 
 def allowed_file(filename):
     return '.' in filename and \
