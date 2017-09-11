@@ -33,6 +33,7 @@ def upload():
         files = app.config['UPLOAD_FOLDER']+'/'+filename
         text = ocr_default(files,"thresh").encode('utf-8')
         #text = ocr_default(files,"thresh")
+        #text = ocr_default(files,"thresh")
         imgo = {
             'src': 'images/'+filename,
             'text': text,

@@ -86,10 +86,12 @@ def ocr_default(img_file,preprocess) :
         #print text1[26],text1[27],text1[28],text1[29]
 
 
-    output_join = text1[0],text1[1],'\n',text1[2],text1[3],'\n',text1[5],":",text1[6],'\n',text1[8],text1[9],"\n Issue Date:",text1[12],"\n Expiry Date:",text1[15],"\n Date of Birth:",text1[18],"\n Name:",text1[20],"\n Father's Name:",text1[21],text1[22],"\n Address:",text1[24],text1[25],",",text1[26],text1[27],text1[28],text1[29]
-    
-
-    finalz = ' '.join(repr(x.encode('ascii')) for x in output_join)
+    output_join = [text1[0]+" "+text1[1]+" "+text1[2]+text1[3]+text1[5]+":"+text1[6]+text1[8]+text1[9]+"Issue Date:"+text1[12]+"Expiry Date:"+text1[15]+"Date of Birth:"+text1[18]+"Name:"+text1[20]+"Father's Name:"+text1[21]+text1[22]+"Address:"+text1[24]+text1[25]+","+text1[26]+text1[27]+text1[28]+text1[29]]
+    #print "\n".join(output_join)
+    #print output_join.split("\n")
+    output_join='\n '.join(output_join)
+    print output_join
+    #finalz = " ".join(repr(x.encode('ascii')) for x in output_join)
 
     #text1=text.split("  ")
     #print text1
@@ -128,7 +130,7 @@ def ocr_default(img_file,preprocess) :
 
     finaltext = strip_non_ascii(text)
     #finaltext=" \n".join(text1)
-   
+    
     #data = finaltext.split("\n")
     #print finaltext
     #words = finaltext.split(" ") 
@@ -139,5 +141,6 @@ def ocr_default(img_file,preprocess) :
     # cv2.imshow("Image", image)
     # cv2.imshow("Output", gray)
     #cv2.waitKey(0)
-
-    return finalz
+    
+    return output_join #.strip('"\'')
+    #return "".join(finalz) + "."
