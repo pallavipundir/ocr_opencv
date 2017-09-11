@@ -15,7 +15,7 @@ def ocr_default(img_file,preprocess) :
     import dateutil
     import subprocess
     #from PIL import ImageEnhance
-    from scipy import misc
+    #from scipy import misc
 
     # Load image, resize width and height & then convert to grayscale
     image = cv2.imread(img_file)
@@ -62,26 +62,34 @@ def ocr_default(img_file,preprocess) :
     #text=re.match(r"[a-zA-Z\s*a-zA-Z\s*a-zA-Z\s*0-9a-zA-Z\s*(DOB|date\s*of\s*birth)\s*:?\s*[0-9]{2}\s*\/\s*[0-9]{1,2}\s*\/\s*[0-9]{4}a-zA-Z\s*a-zA-Z\s*a-zA-Z\s*[0-9]{1}\s*\-[0-9]{1}\s*[0-9]\s*a-zA-Z\s*[0-9]{2}\s*\-[0-9]{4}\s*a-zA-Z\s*[0-9]{2}\s*\-\s*[0-9]{1,2}\s*\-\s*[0-9]{4}",text)
     text = re.sub('[^a-zA-Z0-9\s\d\w\b\t\n:/\-\'^.,*\/]*','', text)
     text1=text.split()
-    print text1
+    #print text1
     #print("length is",len(text1))
     #For appending or store the results 
     
     #
-        #print text1[i]    
+        #print text1[i] 
+    #network=[]   
+
     #while:
-    for i in range(len(text1)):
-        print text1[0],text1[1]
-        print text1[2],text1[3]
-        print text1[5],":",text1[6]
-        print text1[8],text1[9]
-        print "Issue Date:",text1[12]
-        print "Expiry Date:",text1[15]
-        print "Date of Birth:",text1[18]
-        print "Name:",text1[20]
-        print "Father's Name:",text1[21],text1[22]
-        print "Address:",text1[24],text1[25],",",text1[26],text1[27],text1[28],text1[29]
+    #for i in text1:
+   # print text1[0],text1[1]
+    #print text1[2],text1[3]
+    #print text1[5],":",text1[6]
+    #print text1[8],text1[9]
+    #print "Issue Date:",text1[12]
+    #print "Expiry Date:",text1[15]
+    #print "Date of Birth:",text1[18]
+    #print "Name:",text1[20]
+    #print "Father's Name:",text1[21],text1[22]
+    #print "Address:",text1[24],text1[25],",",text1[26],text1[27],text1[28],text1[29]
+    #network.append(text1)
         #print text1[26],text1[27],text1[28],text1[29]
 
+
+    output_join = text1[0],text1[1],'\n',text1[2],text1[3],'\n',text1[5],":",text1[6],'\n',text1[8],text1[9],"\n Issue Date:",text1[12],"\n Expiry Date:",text1[15],"\n Date of Birth:",text1[18],"\n Name:",text1[20],"\n Father's Name:",text1[21],text1[22],"\n Address:",text1[24],text1[25],",",text1[26],text1[27],text1[28],text1[29]
+    
+
+    finalz = ' '.join(repr(x.encode('ascii')) for x in output_join)
 
     #text1=text.split("  ")
     #print text1
@@ -97,8 +105,8 @@ def ocr_default(img_file,preprocess) :
     #text
     #text=re.search(re.compile(r"[^a-zA-Z$a-zA-Z$a-zA-Z$0-9a-zA-Z$a-zA-Z0-9$a-zA-Z0-9$a-zA-Z$a-zA-Z$a-zA-Z$0-9]",re.MULTILINE),text).group(1)
     #text = re.sub('[a-zA-Z\s0-9\s]+\s*DL\s*\K[0-9]{8,10}(?=\s*[0-9]{1,}\s*.*)','',text)
-    text=text.replace("-","/")
-    text=text.replace('\n\n','\n')
+    #text1=text1.replace("-","/")
+    #text1=text1.replace('\n\n','\n')
     #print np.array(list(text))
     #format(text, '<20')
     #text=re.sub('[0-9]+/[0-9]+/[0-9]','',text)
@@ -116,8 +124,11 @@ def ocr_default(img_file,preprocess) :
     #if text=="%d/%m%Y":
        # text=text.replace("/","-")
     #os.remove(filename)
+    
 
     finaltext = strip_non_ascii(text)
+    #finaltext=" \n".join(text1)
+   
     #data = finaltext.split("\n")
     #print finaltext
     #words = finaltext.split(" ") 
@@ -129,4 +140,4 @@ def ocr_default(img_file,preprocess) :
     # cv2.imshow("Output", gray)
     #cv2.waitKey(0)
 
-    return finaltext
+    return finalz
