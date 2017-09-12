@@ -18,7 +18,7 @@ def ocr_default(img_file,preprocess) :
     #from scipy import misc
 
     # Load image, resize width and height & then convert to grayscale
-    image = cv2.imread(img_file)
+    image = cv2.imread(img_file,0)
     height, width = image.shape[:2]
     image = cv2.resize(image, (width*1, height*1), interpolation = cv2.INTER_AREA) 
     #enh = ImageEnhance.Contrast(image)
@@ -33,12 +33,12 @@ def ocr_default(img_file,preprocess) :
     # make a check to see if median blurring should be done to remove noise #
     #elif preprocess == "blur":
      #   gray = cv2.m edianBlur(gray, 3)
-
+    
     dst = cv2.fastNlMeansDenoising(image,None,10,7,21)
     dst1 = cv2.fastNlMeansDenoising(dst,None,7,5,17)
     dst2 = cv2.fastNlMeansDenoising(dst1,None,7,5,17)
-    b,g,r = cv2.split(dst2)           # get b,g,r
-    rgb_dst = cv2.merge([r,g,b])     # switch it to rgb
+   # b,g,r = cv2.split(dst2)           # get b,g,r
+    #rgb_dst = cv2.merge([r,g,b])     # switch it to rgb
    
     kernel=np.zeros((5,5),np.float32)#Create the identity filter, but with the 1 shifted to the right!
     kernel[3,3]=2.0   #Identity, times two! 
@@ -47,7 +47,8 @@ def ocr_default(img_file,preprocess) :
     custom=cv2.filter2D(dst2,-1,kernel)
     #dilation = cv2.dilate(custom,kernel,iterations =1)
     #cv2.imwrite("E:/licence/img8.jpg",dilation)
-   # equ = cv2.equalizeHist(custom)
+    
+    #equ = cv2.equalizeHist(custom)
     cv2.imwrite("E:/licence/img.jpg",custom)
     
     # write the grayscale image to disk as a temporary file so we can apply OCR to it #
@@ -86,11 +87,14 @@ def ocr_default(img_file,preprocess) :
         #print text1[26],text1[27],text1[28],text1[29]
 
 
-    output_join = [text1[0]+" "+text1[1]+" "+text1[2]+text1[3]+text1[5]+":"+text1[6]+text1[8]+text1[9]+"Issue Date:"+text1[12]+"Expiry Date:"+text1[15]+"Date of Birth:"+text1[18]+"Name:"+text1[20]+"Father's Name:"+text1[21]+text1[22]+"Address:"+text1[24]+text1[25]+","+text1[26]+text1[27]+text1[28]+text1[29]]
+#  output_join = [text1[0],"\n","Texas","\n ",text1[2],text1[3],",",text1[5],":",text1[6],"\n",text1[8],text1[9],"\nIssue Date:",text1[12],"\nExpiry Date:",text1[15],"\nDate of Birth:",text1[18],"\nName:",text1[20],"\nFather's Name:",text1[21],text1[22],"\nAddress:",text1[24],text1[25],",","\n",text1[26],text1[27],text1[28],text1[29]]
+    #output_join = [text1[0],"\n","Texas","\n ",text1[2],text1[3],",",text1[4]," ",text1[5],":",text1[6],"\n",text1[7]," ",text1[8],text1[9],"\nIssue Date:",text1[12],"\nExpiry Date:",text1[11]," ",text1[12]," ",text1[13]," ",text1[14]," ",text1[15],"\nDate of Birth:",text1[16]," ",text1[17]," ",text1[18],"\nName:",text1[20],"\nFather's Name:",text1[21],text1[22],"\nAddress:",text1[24],text1[25],",","\n",text1[26],text1[27],text1[28],text1[29]] 
+    #for elem in output_join:
+     #   print elem 
     #print "\n".join(output_join)
     #print output_join.split("\n")
-    output_join='\n '.join(output_join)
-    print output_join
+    #output_join='\n '.join(output_join)
+    #print "\n".join(output_join)
     #finalz = " ".join(repr(x.encode('ascii')) for x in output_join)
 
     #text1=text.split("  ")
@@ -142,5 +146,5 @@ def ocr_default(img_file,preprocess) :
     # cv2.imshow("Output", gray)
     #cv2.waitKey(0)
     
-    return output_join #.strip('"\'')
-    #return "".join(finalz) + "."
+    #return " ".join(output_join) #.strip('"\'')
+    return finaltext
