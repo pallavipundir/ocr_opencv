@@ -49,10 +49,10 @@ def ocr_default(img_file,preprocess) :
     #cv2.imwrite("E:/licence/img8.jpg",dilation)
     
     #equ = cv2.equalizeHist(custom)
-    cv2.imwrite("E:/licence/img.jpg",custom)
+    #cv2.imwrite("E:/licence/img.jpg",custom)
     
     # write the grayscale image to disk as a temporary file so we can apply OCR to it #
-    filename = "{}.png".format(os.getpid())
+    filename = "E:/OCR_Work/ocr_opencv/storage/Image/files/{}.png".format(os.getpid())
     cv2.imwrite(filename, custom)
     cv2.imwrite("E:/licence/img1.png",custom)
 
@@ -87,8 +87,9 @@ def ocr_default(img_file,preprocess) :
         #print text1[26],text1[27],text1[28],text1[29]
 
 
-#  output_join = [text1[0],"\n","Texas","\n ",text1[2],text1[3],",",text1[5],":",text1[6],"\n",text1[8],text1[9],"\nIssue Date:",text1[12],"\nExpiry Date:",text1[15],"\nDate of Birth:",text1[18],"\nName:",text1[20],"\nFather's Name:",text1[21],text1[22],"\nAddress:",text1[24],text1[25],",","\n",text1[26],text1[27],text1[28],text1[29]]
+    #output_join = [text1[0],"\n","Texas","\n ",text1[3],text1[4],"NO. :",text1[12],"\n",text1[14],text1[15],"\nIssue Date:",text1[18],"\nExpiry Date:",text1[21],"\nDate of Birth:",text1[24],"\nName:",text1[25],"\nFather's Name:",text1[26],text1[27],"\nAddress:",text1[29],text1[30],text1[31],",","\n",text1[32],text1[33],text1[34]]
     #output_join = [text1[0],"\n","Texas","\n ",text1[2],text1[3],",",text1[4]," ",text1[5],":",text1[6],"\n",text1[7]," ",text1[8],text1[9],"\nIssue Date:",text1[12],"\nExpiry Date:",text1[11]," ",text1[12]," ",text1[13]," ",text1[14]," ",text1[15],"\nDate of Birth:",text1[16]," ",text1[17]," ",text1[18],"\nName:",text1[20],"\nFather's Name:",text1[21],text1[22],"\nAddress:",text1[24],text1[25],",","\n",text1[26],text1[27],text1[28],text1[29]] 
+    output_join = [text1[0],"\n",text1[1],text1[2],text1[3],text1[4],text1[5],text1[6],"\n",text1[7],text1[8],text1[9],text1[10],text1[11]," ::",text1[12]," ",text1[13]," ",text1[14]," ",text1[15],text1[16]," ",text1[17]," ",text1[18],text1[19],text1[20],text1[21],text1[22],text1[23],text1[24],text1[25],"\n",text1[26],text1[27],text1[28],text1[29]] 
     #for elem in output_join:
      #   print elem 
     #print "\n".join(output_join)
@@ -146,5 +147,5 @@ def ocr_default(img_file,preprocess) :
     # cv2.imshow("Output", gray)
     #cv2.waitKey(0)
     
-    #return " ".join(output_join) #.strip('"\'')
-    return finaltext
+    return " ".join(output_join) #.strip('"\'')
+    #return finaltext
