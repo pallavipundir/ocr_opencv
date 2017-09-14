@@ -1,7 +1,7 @@
 import cv2
-import matplotlib
-img = cv2.imread('F:/Softwares/dl.jpg', 1)
-cv2.imwrite("F:/Softwares/Original_image.jpg",img)
+
+img = cv2.imread('F:\\Softwares\\dl\\tex2.png',1)
+cv2.imshow("Original image",img)
 
 # CLAHE (Contrast Limited Adaptive Histogram Equalization)
 clahe = cv2.createCLAHE(clipLimit=3., tileGridSize=(8,8))
@@ -13,7 +13,7 @@ l2 = clahe.apply(l)  # apply CLAHE to the L-channel
 
 lab = cv2.merge((l2,a,b))  # merge channels
 img2 = cv2.cvtColor(lab, cv2.COLOR_LAB2BGR)  # convert from LAB to BGR
-cv2.imwrite('F:/Softwares/Increased_contrast.jpg', img2)
+cv2.imshow('Increased contrast', img2)
 #cv2.imwrite('sunset_modified.jpg', img2)
 
 cv2.waitKey(0)

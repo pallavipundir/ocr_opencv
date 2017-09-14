@@ -26,16 +26,19 @@ def ocr_default(img_file,preprocess) :
     #M = cv2.getRotationMatrix2D((width/2,height/2),360,1)
     #dst = cv2.warpAffine(image,M,(width,height))
     #equ = cv2.equalizeHist(image)
-    cv2.imwrite("E:/licence/10.jpg",image)
+    #cv2.imwrite("E:/licence/10.jpg",image)
     thresh = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1] 
     cv2.imwrite("E:/licence/1.jpg",thresh)
+   
     # edge detection
     #edges = cv2.Canny(thresh,2,100, apertureSize = 3)
     #cv2.imwrite("E:/licence/2.jpg",edges)
     # fill the holes from detected edges
-    kernel = np.ones((2,2),np.uint8)
-    dilate = cv2.dilate(thresh, kernel, iterations=1)
-    cv2.imwrite("E:/licence/3.jpg",dilate)
+
+   # 
+    #dilate = cv2.dilate(thresh, kernel, iterations=1)
+    #cv2.imwrite("E:/licence/3.jpg",dilate)
+
     #enh = ImageEnhance.Contrast(image)
     #cv2.imwrite("E:/licence/img7.jpg",enh)
     #gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -49,27 +52,28 @@ def ocr_default(img_file,preprocess) :
     #elif preprocess == "blur":
      #   gray = cv2.m edianBlur(gray, 3)
     
-    dst = cv2.fastNlMeansDenoising(dilate,None,10,7,21)
+    dst = cv2.fastNlMeansDenoising(thresh,None,20,17,41)
     dst1 = cv2.fastNlMeansDenoising(dst,None,7,5,17)
     dst2 = cv2.fastNlMeansDenoising(dst1,None,7,5,17)
-   # b,g,r = cv2.split(dst2)           # get b,g,r
+    #b,g,r = cv2.split(dst2)           # get b,g,r
     #rgb_dst = cv2.merge([r,g,b])     # switch it to rgb
-   
+    cv2.imwrite("E:/licence/2.jpg",dilation)
     kernel=np.zeros((5,5),np.float32)#Create the identity filter, but with the 1 shifted to the right!
     kernel[3,3]=2.0   #Identity, times two! 
     boxFilter=np.ones((5,5),np.float32)/91.0 # default is 81.0 Blurs an image using the box filter.
     kernel=kernel-boxFilter
     custom=cv2.filter2D(dst2,-1,kernel)
+    kernel = np.ones((2,2),np.uint8)
     dilation = cv2.dilate(custom,kernel,iterations =1)
-   # cv2.imwrite("E:/licence/img8.jpg",custom)
+    cv2.imwrite("E:/licence/3.jpg",dilation)
     
     #equ = cv2.equalizeHist(custom)
     #cv2.imwrite("E:/licence/img.jpg",custom)
     
     # write the grayscale image to disk as a temporary file so we can apply OCR to it #
     filename = "E:/OCR_Work/ocr_opencv/storage/files/Image/{}.png".format(os.getpid())
-    cv2.imwrite(filename, custom)
-    cv2.imwrite("E:/licence/img1.png",custom)
+    cv2.imwrite(filename, dilation)
+    cv2.imwrite("E:/licence/4.png",dilation)
 
     # load the image as a PIL/Pillow image, apply OCR, and then delete the temporary file #
     text = pytesseract.image_to_string(Image.open(filename)).upper()
@@ -127,8 +131,8 @@ def ocr_default(img_file,preprocess) :
     #text
     #text=re.search(re.compile(r"[^a-zA-Z$a-zA-Z$a-zA-Z$0-9a-zA-Z$a-zA-Z0-9$a-zA-Z0-9$a-zA-Z$a-zA-Z$a-zA-Z$0-9]",re.MULTILINE),text).group(1)
     #text = re.sub('[a-zA-Z\s0-9\s]+\s*DL\s*\K[0-9]{8,10}(?=\s*[0-9]{1,}\s*.*)','',text)
-    #text1=text1.replace("-","/")
-    #text1=text1.replace('\n\n','\n')
+    text=text.replace("/","-")
+    text=text.replace('\n\n','\n')
     #print np.array(list(text))
     #format(text, '<20')
     #text=re.sub('[0-9]+/[0-9]+/[0-9]','',text)
