@@ -174,10 +174,5 @@ def ocr_default(img_file,preprocess) :
     # cv2.imshow("Output", gray)
     #cv2.waitKey(0)
     
-<<<<<<< HEAD
     #return " ".join(output_join) #.strip('"\'')
     return finaltext
-=======
-    return " ".join(output_join) #.strip('"\'')
-    #return finaltext
->>>>>>> ca29ffed6c273a33aed317b66bf204126408b352
