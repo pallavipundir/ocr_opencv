@@ -74,6 +74,10 @@ def ocr_default(img_file,preprocess) :
     #cv2.imwrite("E:/licence/img.jpg",custom)
     
     # write the grayscale image to disk as a temporary file so we can apply OCR to it #
+
+
+  #  filename = "E:/OCR_Work/ocr_opencv/storage/files/{}.png".format(os.getpid())
+
     filename = "{}.png".format(os.getpid())
     cv2.imwrite(filename, custom)
     cv2.imwrite("E:/licence/2.png",custom)
@@ -170,5 +174,10 @@ def ocr_default(img_file,preprocess) :
     # cv2.imshow("Output", gray)
     #cv2.waitKey(0)
     
+<<<<<<< HEAD
     #return " ".join(output_join) #.strip('"\'')
     return finaltext
+=======
+    return " ".join(output_join) #.strip('"\'')
+    #return finaltext
+>>>>>>> ca29ffed6c273a33aed317b66bf204126408b352
