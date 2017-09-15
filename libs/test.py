@@ -74,7 +74,8 @@ def ocr_default(img_file,preprocess) :
     #cv2.imwrite("E:/licence/img.jpg",custom)
     
     # write the grayscale image to disk as a temporary file so we can apply OCR to it #
-    filename = "E:/OCR_Work/ocr_opencv/storage/files/{}.png".format(os.getpid())
+  #  filename = "E:/OCR_Work/ocr_opencv/storage/files/{}.png".format(os.getpid())
+    filename = "{}.png".format(os.getpid())
     cv2.imwrite(filename, custom)
     cv2.imwrite("E:/licence/2.png",custom)
 
