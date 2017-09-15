@@ -2,7 +2,7 @@ import subprocess
 import os
 
 # image name to load #
-filename = "11.50.05.AM_24.Aug.2017_dl18.jpg"
+filename = "F:\\Softwares\\dl\\img4.jpg"
 
 # get current directry #
 pwd = os.getcwd()
