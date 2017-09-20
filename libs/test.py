@@ -65,13 +65,13 @@ def ocr_default(img_file,preprocess) :
     #cv2.imwrite("E:/licence/2.jpg",dilation)
     kernel=np.zeros((5,5),np.float32)#Create the identity filter, but with the 1 shifted to the right!
     kernel[3,3]=2.0   #Identity, times two! 
-    boxFilter=np.ones((5,5),np.float32)/120.0 # default is 81.0 Blurs an image using the box filter.
+    boxFilter=np.ones((5,5),np.float32)/100.0 # default is 81.0 Blurs an image using the box filter.
     kernel=kernel-boxFilter
     custom=cv2.filter2D(rgb_dst,-1,kernel)
     
     
     #equ = cv2.equalizeHist(custom)
-    cv2.imwrite("E:/licence/6.jpg",custom)
+    #cv2.imwrite("E:/licence/6.jpg",custom)
     
     # write the grayscale image to disk as a temporary file so we can apply OCR to it #
 
