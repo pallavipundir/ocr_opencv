@@ -157,7 +157,7 @@ def ocr_default(img_file,preprocess) :
         m = re.search(regexArray[key],text)
         if m:
             newarray[key] = m.group(0)
-           else :
+        else :
             newarray[key] = 'No match'
     
     
