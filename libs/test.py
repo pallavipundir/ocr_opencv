@@ -142,6 +142,27 @@ def ocr_default(img_file,preprocess) :
     text=text.replace("/","-")
     text=text.replace('\n\n','\n')
     #print np.array(list(text))
+    regexArray = {}
+    regexArray['dl'] = 'DL\s+[0-9]{8,12}\s+[0-9]{1,2}'
+    regexArray['class']='[0-9 ]+CLASS+[a-zA-Z]'
+    regexArray['ISS']='[0-9]+[a-zA-Z ]+[0-9]{1,2}\-[0-9]{1,2}\-[0-9]{1,4}'
+    regexArray['EXP']='EXP\s+[0-9]{2}\-[0-9]{2}\-[0-9]{4}'
+    regexArray['DOB']='DOB\s+[0-9]{2}\-[0-9]{2}\-[0-9]{4}'
+    regexArray['NAME']='[a-zA-Z ]'
+    regexArray['FATHER NAME']='[a-zA-Z ]'
+    regexArray['ADDRESS']='[0-9 ]+\s*+[a-zA-Z ]+\.\n[a-zA-Z 0-9]+'
+    regexArray['INFO']='[0-9a-zA-Z ]+HGT\s+[0-9]+\-[0-9]{2}\s+[0-9 ]+SEX\s+(M|F)\s[0-9]+\.\s+EYES\s+[a-zA-Z]+'
+    newarray = []
+    for key in regexArray:
+        m = re.search(regexArray[key],text)
+        if m:
+            newarray[key] = m.group(0)
+           else :
+            newarray[key] = 'No match'
+    
+    
+    #regexArray.append(regexArray)
+    
     #format(text, '<20')
     #text=re.sub('[0-9]+/[0-9]+/[0-9]','',text)
     #re.match('^[A-Za-z0-9.,:;!?()\s]+$', str)
@@ -175,4 +196,4 @@ def ocr_default(img_file,preprocess) :
     #cv2.waitKey(0)
     
     #return " ".join(output_join) #.strip('"\'')
-    return finaltext
+    return regexArray
