@@ -153,7 +153,10 @@ def ocr_default(img_file,preprocess) :
     regexArray['ADDRESS']='[0-9 ]+\s*+[a-zA-Z ]+\.\n[a-zA-Z 0-9]+'
     regexArray['INFO']='[0-9a-zA-Z ]+HGT\s+[0-9]+\-[0-9]{2}\s+[0-9 ]+SEX\s+(M|F)\s[0-9]+\.\s+EYES\s+[a-zA-Z]+'
     newarray = []
-    for key in regexArray:
+    for key, value in regexArray.iteritems():
+        print '{}: {}'.format(key, value)
+        
+
         m = re.search(regexArray[key],text)
         if m:
             newarray[key] = m.group(0)
