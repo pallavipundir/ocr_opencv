@@ -161,7 +161,15 @@ def ocr_default(img_file,preprocess) :
         #    newarray[key] = m.group(0)
         #else :
         #    newarray[key] = 'No match'
-    
+
+        
+
+        #m = re.search(regexArray[key],text)
+        #if m:
+         #   newarray[key] = m.group(0)
+        #else :
+         #   newarray[key] = 'No match'
+
     
     #regexArray.append(regexArray)
     
