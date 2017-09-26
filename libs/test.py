@@ -130,7 +130,7 @@ def ocr_default(img_file,preprocess) :
     #return text
     #print np.array(list(text))
     regexArray = {}
-    regexArray['DL'] = r'DL\s+[0-9]{8,12}\s+[0-9]{1,2}'
+    regexArray['MDL'] = r'DL\s+[0-9]{8,12}\s+[0-9]{1,2}'
     regexArray['CLASS']=r'CLASS+[a-zA-Z]'
     regexArray['ISS']=r'ISS\s+[0-9]{2}\/[0-9]{2}\/[0-9]{4}'
     regexArray['EXP']=r'EXP\s+[0-9]{2}\/[0-9]{2}\/[0-9]{4}'
