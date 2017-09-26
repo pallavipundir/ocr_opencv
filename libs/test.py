@@ -5,7 +5,7 @@ def strip_non_ascii(string):
     stripped = (c for c in string if 0 < ord(c) < 127)
     return ''.join(stripped)
 
-def ocr_default(img_file,preprocess) :
+def ocr_default(img_file, preprocess) :
     from PIL import Image
     import pytesseract
     import cv2
@@ -87,6 +87,7 @@ def ocr_default(img_file,preprocess) :
    
     
     text = re.sub('[^a-zA-Z0-9\s\d\w\b\t\n:/\-\'^.,*\/]*','', text)
+    
     text1=text.split() 
     newtest = " ".join(str(x) for x in text1)
     #return newtest
@@ -122,7 +123,7 @@ def ocr_default(img_file,preprocess) :
     #text=re.search(re.compile(r"[^a-zA-Z$a-zA-Z$a-zA-Z$0-9a-zA-Z$a-zA-Z0-9$a-zA-Z0-9$a-zA-Z$a-zA-Z$a-zA-Z$0-9]",re.MULTILINE),text).group(1)
     #text = re.sub('[a-zA-Z\s0-9\s]+\s*DL\s*\K[0-9]{8,10}(?=\s*[0-9]{1,}\s*.*)','',text)
     #text=text.replace("/","-")
-    #text=text.replace('\n\n','\n')
+    text=text.replace('\n\n','\n')
     #text=text.replace('\n\n','\n')
     #print " ".join(text)
    # text1="7AN DRIVER LICENSE MDL 14728398 9 CLASSC 4A ISS 06-03-2014 2 EXP 05-27-2018 3 DOB 05-27-1974 1 HERNANDEZ 2 ERMINDA LYNN 8 220 MAUDE ST. WHARTON TX 77488"
@@ -130,37 +131,34 @@ def ocr_default(img_file,preprocess) :
     #return text
     #print np.array(list(text))
     regexArray = {}
-    regexArray['MDL'] = r'DL\s+[0-9]{8,12}\s+[0-9]{1,2}'
+    regexArray['MDL'] = r'DL\s*[0-9]{8,10}\s*(?=[0-9]+\s*.*)'
     regexArray['CLASS']=r'CLASS+[a-zA-Z]'
-    regexArray['ISS']=r'ISS\s+[0-9]{2}\/[0-9]{2}\/[0-9]{4}'
-    regexArray['EXP']=r'EXP\s+[0-9]{2}\/[0-9]{2}\/[0-9]{4}'
-    regexArray['DOB']=r'[0-9]{2}\/[0-9]{2}\/[0-9]{4}'
-    regexArray['NAME']=r'[0-9]+\s[a-zA-Z]+'
+    regexArray['ISS']=r'ISS\s+[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
+    regexArray['EXP']=r'EXP\s+[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
+    regexArray['DOB']=r'DOB\s*[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
+    regexArray['NAME']=r'[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}\s*[0-9]{0,2}\s*[A-Z]+\s*[0-9]{0,2}\s*[A-Z\s]+(?=\s*[0-9]{1,2}\s*[0-9]{2,5})'
     regexArray['FATHER NAME']=r'[a-zA-Z ]'
     regexArray['ADDRESS']=r'[0-9]+\s+[a-zA-Z ]+\.+\n[a-zA-Z ]+[0-9]{5,8}'
     regexArray['INFO']=r'RESTRICTIONS\s+[a-zA-Z]+\sUEND\s+[a-zA-Z]+\n[0-9a-zA-Z]+\s+HGT\s[0-9]\/[0-9]{2}\s[0-9]{2}\s+[a-zA-Z]+\s(M|F)\s+[0-9]\.\s+[a-zA-Z]+\s[a-zA-Z]+'
-    newarray = {}
+    parsed_data = {}
     #for key, value in regexArray.iteritems() :
     # print (key, value)
-    index  = 0
-    for key in regexArray:
-       #  print(key) 
-        
-        if re.search(regexArray[key], newtest):
-            match = re.search(regexArray[key], newtest)
+    for (attrib, regx) in regexArray.iteritems():
+        print "Debug: ", attrib, ">> ", regx
+    
+        if re.search(regx, newtest):
+            match = re.search(regx, newtest)
             #print(key)
-        #print "Match at index".(match.start(), match.end())
-            str1= (match.group())
-            #print str1
-            Array = {}
-            Array[key] = str1 
+            #print "Match at index".(match.start(), match.end())
+            string = (match.group(0))
             
-
-
+            parsed_data[attrib] = string
+        
         else:
-            Array[key] = "not found" 
-           # print ( key + "=> notfound")
-    print regexArray
+            parsed_data[attrib] = "NA" 
+            # print ( key + "=> notfound")
+
+  
     #index += 1
     #print(index)
     #newarray[key] = index
@@ -207,7 +205,7 @@ def ocr_default(img_file,preprocess) :
        # text=text.replace("/","-")
     #os.remove(filename)
     
-
+    parsed_data['NAME'] = re.sub('\s{2,}', ' ', re.sub('[0-9\/]+', '', parsed_data['NAME']))
     finaltext = strip_non_ascii(text)
     #finaltext=" \n".join(text1)
     
@@ -223,4 +221,4 @@ def ocr_default(img_file,preprocess) :
     #cv2.waitKey(0)
     
 #return " ".join(text).strip('"\'')
-    return Array
+    return parsed_data
