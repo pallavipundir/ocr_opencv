@@ -5,7 +5,7 @@ def strip_non_ascii(string):
     stripped = (c for c in string if 0 < ord(c) < 127)
     return ''.join(stripped)
 
-def ocr_default(img_file, preprocess) :
+def ocr_default(img_file,preprocess) :
     from PIL import Image
     import pytesseract
     import cv2
@@ -87,83 +87,33 @@ def ocr_default(img_file, preprocess) :
    
     
     text = re.sub('[^a-zA-Z0-9\s\d\w\b\t\n:/\-\'^.,*\/]*','', text)
-    
-    text1=text.split() 
-    newtest = " ".join(str(x) for x in text1)
-    #return newtest
-    #print("length is",len(text1))
-    #For appending or store the results 
- 
 
-    
-    #output_join = [text1[0],"Texas",text1[1],text1[2],text1[3],text1[4],text1[5],text1[6],text1[7],text1[8],text1[9],text1[10],text1[11],text1[12],text1[13],text1[14],text1[15],text1[16],text1[17],text1[18]] 
-    #output_join = [text1[0],"\n","Texas","\n ",text1[2],text1[3],",",text1[4]," ",text1[5],":",text1[6],"\n",text1[7]," ",text1[8],text1[9],"\nIssue Date:",text1[12],"\nExpiry Date:",text1[11]," ",text1[12]," ",text1[13]," ",text1[14]," ",text1[15],"\nDate of Birth:",text1[16]," ",text1[17]," ",text1[18],"\nName:",text1[20],"\nFather's Name:",text1[21],text1[22],"\nAddress:",text1[24],text1[25],",","\n",text1[26],text1[27],text1[28],text1[29]] 
-    #output_join = [text1[0],"\n",text1[1],text1[2],"\nDL:",text1[5],"\n",text1[6],"\n",text1[7],text1[8],text1[9],text1[10],text1[11],text1[12],text1[13],text1[14],text1[15],text1[16],text1[17],text1[18]] 
-    #for elem in output_join:
-     #   print elem 
-    #print "  ".join(output_join)
-    #print output_join.split("\n")
-    #output_join='\n '.join(output_join)
-    #print "\n".join(output_join)
-    
-    #finalz = " ".join(repr(x.encode('ascii')) for x in text1)
-
-    #text1=text.split("  ")
-    #print text1
-    #print("length is",len(text1))
-    
-    #for i in range(len(text1)):
-        #print text1[i] 
-        #print("Driver's licence is",text1[0])  
-     #   print text1[1]
-
-
-    #text=text.split('\n')
-    #text
-    #text=re.search(re.compile(r"[^a-zA-Z$a-zA-Z$a-zA-Z$0-9a-zA-Z$a-zA-Z0-9$a-zA-Z0-9$a-zA-Z$a-zA-Z$a-zA-Z$0-9]",re.MULTILINE),text).group(1)
-    #text = re.sub('[a-zA-Z\s0-9\s]+\s*DL\s*\K[0-9]{8,10}(?=\s*[0-9]{1,}\s*.*)','',text)
-    #text=text.replace("/","-")
+    text=text.replace("/","-")
     text=text.replace('\n\n','\n')
     #text=text.replace('\n\n','\n')
     #print " ".join(text)
    # text1="7AN DRIVER LICENSE MDL 14728398 9 CLASSC 4A ISS 06-03-2014 2 EXP 05-27-2018 3 DOB 05-27-1974 1 HERNANDEZ 2 ERMINDA LYNN 8 220 MAUDE ST. WHARTON TX 77488"
-    text1=str(text1) 
+        
     #return text
     #print np.array(list(text))
-    regexArray = {}
-    regexArray['MDL'] = r'DL\s*[0-9]{8,10}\s*(?=[0-9]+\s*.*)'
-    regexArray['CLASS']=r'CLASS+[a-zA-Z]'
-    regexArray['ISS']=r'ISS\s+[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
-    regexArray['EXP']=r'EXP\s+[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
-    regexArray['DOB']=r'DOB\s*[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
-    regexArray['NAME']=r'[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}\s*[0-9]{0,2}\s*[A-Z]+\s*[0-9]{0,2}\s*[A-Z\s]+(?=\s*[0-9]{1,2}\s*[0-9]{2,5})'
-    regexArray['FATHER NAME']=r'[a-zA-Z ]'
-    regexArray['ADDRESS']=r'[0-9]+\s+[a-zA-Z ]+\.+\n[a-zA-Z ]+[0-9]{5,8}'
-    regexArray['INFO']=r'RESTRICTIONS\s+[a-zA-Z]+\sUEND\s+[a-zA-Z]+\n[0-9a-zA-Z]+\s+HGT\s[0-9]\/[0-9]{2}\s[0-9]{2}\s+[a-zA-Z]+\s(M|F)\s+[0-9]\.\s+[a-zA-Z]+\s[a-zA-Z]+'
-    parsed_data = {}
-    #for key, value in regexArray.iteritems() :
-    # print (key, value)
-    for (attrib, regx) in regexArray.iteritems():
-        print "Debug: ", attrib, ">> ", regx
-    
-        if re.search(regx, newtest):
-            match = re.search(regx, newtest)
-            #print(key)
-            #print "Match at index".(match.start(), match.end())
-            string = (match.group(0))
-            
-            parsed_data[attrib] = string
-        
-        else:
-            parsed_data[attrib] = "NA" 
-            # print ( key + "=> notfound")
-
-  
-    #index += 1
-    #print(index)
-    #newarray[key] = index
-    ##newarray.append(key)
-    # print ("the key name is" + key + "and its value is" + regexArray[key])
+   # regexArray = {}
+   # regexArray['DL'] = r'DL\s+[0-9]{8,12}\s+[0-9]{1,2}'
+   # regexArray['CLASS']=r'[0-9 ]+CLASS+[a-zA-Z]'
+   # regexArray['ISS']=r'[0-9]+[a-zA-Z ]+[0-9]{1,2}\-[0-9]{1,2}\-[0-9]{1,4}'
+   # regexArray['EXP']=r'EXP\s+[0-9]{2}\-[0-9]{2}\-[0-9]{4}'
+   # regexArray['DOB']=r'DOB\s+[0-9]{2}\-[0-9]{2}\-[0-9]{4}'
+    #regexArray['NAME']=r'[a-zA-Z ]'
+    #regexArray['FATHER NAME']=r'[a-zA-Z ]'
+    #regexArray['ADDRESS']=r'[0-9 ]+\s*+[a-zA-Z ]+\.\n[a-zA-Z 0-9]+'
+    #regexArray['INFO']=r'[0-9a-zA-Z ]+HGT\s+[0-9]+\-[0-9]{2}\s+[0-9 ]+SEX\s+(M|F)\s[0-9]+\.\s+EYES\s+[a-zA-Z]+'
+    #newarray = []
+    #regex =  r"DL\s+[0-9]{8,12}\s+[0-9]{1,2}"    
+    #if re.search(regex,text):
+     #   m = re.search(regex,text)
+      #  print m.group(0)
+        #regexArray[key] = m.group()
+    #else : 
+     #   print 'No match'
 
 
     #for key, value in regexArray.iteritems():
@@ -205,8 +155,7 @@ def ocr_default(img_file, preprocess) :
        # text=text.replace("/","-")
     #os.remove(filename)
     
-    parsed_data['NAME'] = re.sub('\s{2,}', ' ', re.sub('[0-9\/]+', '', parsed_data['NAME']))
-    parsed_data['DL']=re.sub('\s{2,}','',re.sub('[A-Z]+','',parsed_data['DL']))
+
     finaltext = strip_non_ascii(text)
     #finaltext=" \n".join(text1)
     
@@ -221,5 +170,5 @@ def ocr_default(img_file, preprocess) :
     # cv2.imshow("Output", gray)
     #cv2.waitKey(0)
     
-#return " ".join(text).strip('"\'')
-    return parsed_data
+    #return " ".join(text) #.strip('"\'')
+    return finaltext
