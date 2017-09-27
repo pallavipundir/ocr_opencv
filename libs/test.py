@@ -9,7 +9,7 @@ def ocr_default(img_file, preprocess) :
     from PIL import Image
     import pytesseract
     import cv2
-    import os , re
+    import os , re, regex
     import numpy as np
     from datetime import datetime
     import dateutil
@@ -131,14 +131,14 @@ def ocr_default(img_file, preprocess) :
     #return text
     #print np.array(list(text))
     regexArray = {}
-    regexArray['DL'] = r'DL\s*[0-9]{8,10}\s*(?=[0-9]+\s*.*)'
-    regexArray['CLASS']=r'CLASS+[a-zA-Z]'
-    regexArray['ISS']=r'ISS\s+[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
-    regexArray['EXP']=r'EXP\s+[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
-    regexArray['DOB']=r'DOB\s*[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
-    regexArray['NAME']=r'[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}\s*[0-9]{0,2}\s*[A-Z]+\s*[0-9]{0,2}\s*[A-Z\s]+(?=\s*[0-9]{1,2}\s*[0-9]{2,5})'
+    regexArray['DL'] = r'DL\s*\K[0-9]{8,10}\s*(?=[0-9]+\s*.*)|NUMBER\s*\K[A-Z0-9]{8,11}(?=\s*.*)'
+    regexArray['CLASS']=r'CLASS\s*\K[A-Z](?=.*)'
+    regexArray['ISS']=r'(ISSUED|(I|L)SS)\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
+    regexArray['EXP']=r'(EXP|EXPIRES)\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
+    regexArray['DOB']=r'(DOB|DATE\*OF\*BIRTH|ONE)\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
+    regexArray['NAME']=r'[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}\s*[0-9]{0,2}\s*\K[A-Z]+\s*[0-9]{0,2}\s*[A-Z\s]+(?=\s*[0-9]{1,2}\s*[0-9]{2,5})|DRIVER\s*LICENSE\s*\K[A-Z\s]+(?=[0-9]{4,5}\s*.*)'
    # regexArray['FATHER NAME']=r'[a-zA-Z ]'
-    regexArray['ADDRESS']=r'\s*[0-9]+\s+[a-zA-Z ]+\.+\n[a-zA-Z ]+[0-9]{5,8}'
+    regexArray['ADDRESS']=r'\K[0-9]{4,6}.*(?=RE(S|C))|\K[0-9]{4,6}.*(?=CLASS)'
    # regexArray['INFO']=r'RESTRICTIONS\s+[a-zA-Z]+\sUEND\s+[a-zA-Z]+\n[0-9a-zA-Z]+\s+HGT\s[0-9]\/[0-9]{2}\s[0-9]{2}\s+[a-zA-Z]+\s(M|F)\s+[0-9]\.\s+[a-zA-Z]+\s[a-zA-Z]+'
     parsed_data = {}
     #for key, value in regexArray.iteritems() :
@@ -146,8 +146,8 @@ def ocr_default(img_file, preprocess) :
     for (attrib, regx) in regexArray.iteritems():
         print "Debug: ", attrib, ">> ", regx
     
-        if re.search(regx, newtest):
-            match = re.search(regx, newtest)
+        if regex.search(regx, newtest):
+            match = regex.search(regx, newtest)
             #print(key)
             #print "Match at index".(match.start(), match.end())
             string = (match.group(0))
