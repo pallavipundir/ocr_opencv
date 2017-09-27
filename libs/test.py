@@ -93,7 +93,7 @@ def ocr_default(img_file, preprocess) :
     #return newtest
     #print("length is",len(text1))
     #For appending or store the results 
-    return newtest
+    #return newtest
 
     
     #output_join = [text1[0],"Texas",text1[1],text1[2],text1[3],text1[4],text1[5],text1[6],text1[7],text1[8],text1[9],text1[10],text1[11],text1[12],text1[13],text1[14],text1[15],text1[16],text1[17],text1[18]] 
@@ -138,7 +138,7 @@ def ocr_default(img_file, preprocess) :
     regexArray['DOB']=r'(DOB|DATE\*OF\*BIRTH|ONE)\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
     regexArray['NAME']=r'[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}\s*[0-9]{0,2}\s*\K[A-Z]+\s*[0-9]{0,2}\s*[A-Z\s]+(?=\s*[0-9]{1,2}\s*[0-9]{2,5})|DRIVER\s*LICENSE\s*\K[A-Z\s]+(?=[0-9]{4,5}\s*.*)'
    # regexArray['FATHER NAME']=r'[a-zA-Z ]'
-    regexArray['ADDRESS']=r'[0-9]{4,5}\s*[A-Z]+.*[0-9]{4,6}(?=\s*[0-9]+?\s*RE(S|C))|\K[0-9]{4,6}.*(?=CLASS)'
+    regexArray['ADDRESS']=r'[A-Z\s*]+[0-9]{1}\s*\K[0-9]{4,5}\s*[A-Z]+.*[0-9]{4,6}(?=\s*[0-9]+?\s*RE(S|C))|\K[0-9]{4,6}.*(?=CLASS)'
    # regexArray['INFO']=r'RESTRICTIONS\s+[a-zA-Z]+\sUEND\s+[a-zA-Z]+\n[0-9a-zA-Z]+\s+HGT\s[0-9]\/[0-9]{2}\s[0-9]{2}\s+[a-zA-Z]+\s(M|F)\s+[0-9]\.\s+[a-zA-Z]+\s[a-zA-Z]+'
     parsed_data = {}
     #for key, value in regexArray.iteritems() :
@@ -209,4 +209,4 @@ def ocr_default(img_file, preprocess) :
     #return "\n".join(parsed_data).strip('"{}')
     #finalz=parsed_data.strip(' "{}')
     #finalz.split("\n")
-    #return '\n'.join("{}: {}".format(attrib, regx) for attrib, regx in parsed_data.items())
+    return '\n'.join("{}: {}".format(attrib, regx) for attrib, regx in parsed_data.items())
