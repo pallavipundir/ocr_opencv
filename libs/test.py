@@ -207,6 +207,9 @@ def ocr_default(img_file, preprocess) :
     
     parsed_data['NAME'] = re.sub('\s{2,}', ' ', re.sub('[0-9\/]+', '', parsed_data['NAME']))
     parsed_data['DL']=re.sub('\s{2,}','',re.sub('[A-Z]+','',parsed_data['DL']))
+    parsed_data['ISS']=re.sub('\s{2,}','',re.sub('[A-Z]+','',parsed_data['ISS']))
+    parsed_data['EXP']=re.sub('\s{2,}','',re.sub('[A-Z]+','',parsed_data['EXP']))
+    parsed_data['DOB']=re.sub('\s{2,}','',re.sub('[A-Z]+','',parsed_data['DOB']))
     finaltext = strip_non_ascii(text)
     #finaltext=" \n".join(text1)
     
