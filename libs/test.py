@@ -225,4 +225,4 @@ def ocr_default(img_file, preprocess) :
     #cv2.waitKey(0)
     
 #return " ".join(text).strip('"\'')
-    return parsed_data
+    return "\n".join(parsed_data)
