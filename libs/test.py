@@ -134,7 +134,6 @@ def ocr_default(img_file, preprocess) :
     regexArray['DL'] = r'DL\s*[0-9]{8,10}\s*(?=[0-9]+\s*.*)'
     regexArray['CLASS']=r'CLASS+[a-zA-Z]'
     regexArray['ISS']=r'ISS\s+[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
-    regexArray['LSS']=r'LSS\s+[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
     regexArray['EXP']=r'EXP\s+[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
     regexArray['DOB']=r'DOB\s*[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
     regexArray['NAME']=r'[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}\s*[0-9]{0,2}\s*[A-Z]+\s*[0-9]{0,2}\s*[A-Z\s]+(?=\s*[0-9]{1,2}\s*[0-9]{2,5})'
@@ -191,7 +190,6 @@ def ocr_default(img_file, preprocess) :
     parsed_data['NAME'] = re.sub('\s{2,}', ' ', re.sub('[0-9\/]+', '', parsed_data['NAME']))
     parsed_data['DL']=re.sub('\s{2,}','',re.sub('[A-Z]+','',parsed_data['DL']))
     parsed_data['ISS']=re.sub('\s{2,}','',re.sub('[A-Z]+','',parsed_data['ISS']))
-    parsed_data['LSS']=re.sub('\s{2,}','',re.sub('[A-Z]+','',parsed_data['LSS']))
     parsed_data['EXP']=re.sub('\s{2,}','',re.sub('[A-Z]+','',parsed_data['EXP']))
     parsed_data['DOB']=re.sub('\s{2,}','',re.sub('[A-Z]+','',parsed_data['DOB']))
     finaltext = strip_non_ascii(text)
