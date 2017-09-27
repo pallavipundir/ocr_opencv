@@ -169,24 +169,6 @@ def ocr_default(img_file, preprocess) :
     #for key, value in regexArray.iteritems():
         #print '{}: {}'.format(key, value)
        
-    #for key,value in regexArray.items:
-       # m = re.search(value,text1)
-       # if m:
-         #  print m.group(0)
-            #regexArray[key] = m.group()
-        #else : 
-         #   regexArray[key] = 'No match'
-
-        
-
-        #m = re.search(regexArray[key],text)
-        #if m:
-         #   newarray[key] = m.group(0)
-        #else :
-         #   newarray[key] = 'No match'
-
-    
-    #regexArray.append(regexArray)
     
     #format(text, '<20')
     #text=re.sub('[0-9]+/[0-9]+/[0-9]','',text)
@@ -224,5 +206,7 @@ def ocr_default(img_file, preprocess) :
     # cv2.imshow("Output", gray)
     #cv2.waitKey(0)
     
-#return " ".join(text).strip('"\'')
-    return parsed_data
+    #return "\n".join(parsed_data).strip('"{}')
+    #finalz=parsed_data.strip(' "{}')
+    #finalz.split("\n")
+    return '\n'.join("{}: {}".format(attrib, regx) for attrib, regx in parsed_data.items())
