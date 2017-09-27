@@ -136,7 +136,7 @@ def ocr_default(img_file, preprocess) :
     regexArray['ISS']=r'(ISSUED|(I|L)SS)\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
     regexArray['EXP']=r'(EXP|EXPIRES)\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
     regexArray['DOB']=r'(DOB|DATE\*OF\*BIRTH|ONE)\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
-    regexArray['NAME']=r'[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}\s*[0-9]{0,2}\s*\K[A-Z]+\s*[0-9]{0,2}\s*[A-Z\s]+(?=\s*[0-9]{1,2}\s*[0-9]{2,5})|DRIVER\s*LICENSE\s*\K[A-Z\s]+(?=[0-9]{4,5}\s*.*)'
+    regexArray['NAME']=r'(DOB|ONE)\s*[0-9]{2}\/[0-9]{2}\/[0-9]{4}\s*([0-9]{1,2})?\s*\K[A-Z\s]+([0-9]{1,2})?\s*[A-Z\s]+|DRIVER\s*LICENSE\s*\K[A-Z\s]+(?=[0-9]{4,5}\s*.*)'
    # regexArray['FATHER NAME']=r'[a-zA-Z ]'
     regexArray['ADDRESS']=r'DOB\s*[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}\s*[0-9A-Z]{1,2}?\s*[A-Z]+.*\K[0-9]{4,5}\s*[A-Z]+(.*)[0-9]{5,6}\s*(?=[0-9]+\s*RE)|\K[0-9]{4,6}.*(?=CLASS)'
    # regexArray['INFO']=r'RESTRICTIONS\s+[a-zA-Z]+\sUEND\s+[a-zA-Z]+\n[0-9a-zA-Z]+\s+HGT\s[0-9]\/[0-9]{2}\s[0-9]{2}\s+[a-zA-Z]+\s(M|F)\s+[0-9]\.\s+[a-zA-Z]+\s[a-zA-Z]+'
