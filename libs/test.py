@@ -138,7 +138,7 @@ def ocr_default(img_file, preprocess) :
     regexArray['DOB']=r'(DOB|DATE\s*OF\s*BIRTH|ONE|NOS)\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
     regexArray['NAME']=r'(DOB|ONE)\s*[0-9]{2}(\/|\-)[0-9]{2}(\/|\-)[0-9]{4}\s*([0-9]{1,2})?\s*\K[A-Z]+\s*([A-Z]+)?\s*([0-9]{1,2}|\'|_)?\s*[A-Z ]+(?=\s*[0-9]{1}\s*)|[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}\s*[0-9]{0,2}\s*[A-Z]+\s*[0-9]{0,2}\s*[A-Z\s]+(?=\s*[0-9]{1,2}\s*[0-9]{2,5})|(ARIZONA|RIZON)\s*DRIVER\s*LICENSE\s*\K[A-Z\s]+(?=[0-9]{1,5})'
    # regexArray['FATHER NAME']=r'[a-zA-Z ]'
-    regexArray['ADDRESS']=r'(DOB|ONE|NOS)\s*[0-9]{2}(\/|\-)[0-9]{2}(\/|\-)[0-9]{4}\s*([0-9]{1,2})?\s*[A-Z]+\s*([A-Z]+)?\s*([0-9]{1,2}|\'|_)?\s*[A-Z ]+\s{1,2}([0-9]{1}\s{1,2})?\K[0-9]{3,6}\s*[A-Z]+(.*)TX\s*[0-9]{3,6}|((ARIZONA|RIZON)\s*DRIVER\s*LICENSE|ISSUED\s*[0-9]{2}\/[0-9]{2}\/[0-9]{4})\s*[A-Z\s]+\K[0-9]{3,6}.*AZ\s*[0-9]{3,6}(\s*\-[0-9]{2,4})?'
+    regexArray['ADDRESS']=r'(DOB|ONE|NOS)\s*[0-9]{2}(\/|\-)[0-9]{2}(\/|\-)[0-9]{4}\s*([0-9]{1,2})?\s*[A-Z]+\s*([A-Z]+)?\s*([0-9]{1,2}|\'|_)?\s*[A-Z ]+\s{1,2}([0-9]{1}\s{1,2})?\K[0-9]{3,6}\s*[A-Z]+(.*)TX\s*[0-9]{3,6}(\-[0-9]{4})?|((ARIZONA|RIZON)\s*DRIVER\s*LICENSE|ISSUED\s*[0-9]{2}\/[0-9]{2}\/[0-9]{4})\s*[A-Z\s]+\K[0-9]{3,6}.*AZ\s*[0-9]{3,6}(\s*\-[0-9]{2,4})?'
    # regexArray['INFO']=r'RESTRICTIONS\s+[a-zA-Z]+\sUEND\s+[a-zA-Z]+\n[0-9a-zA-Z]+\s+HGT\s[0-9]\/[0-9]{2}\s[0-9]{2}\s+[a-zA-Z]+\s(M|F)\s+[0-9]\.\s+[a-zA-Z]+\s[a-zA-Z]+'
     parsed_data = {}
     #for key, value in regexArray.iteritems() :
