@@ -214,4 +214,7 @@ def ocr_default(img_file, preprocess) :
     #print()
     #f.close()
     finalz='\n'.join("{}: {}".format(attrib, regx) for attrib, regx in parsed_data.items())
+    file = open("C:/Users/pallavi.pundir/Documents/selected_images_text.txt","w") 
+    file.write(finalz) 
+    file.close()
     return finalz
