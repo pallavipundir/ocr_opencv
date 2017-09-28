@@ -90,7 +90,7 @@ def ocr_default(img_file, preprocess) :
     
     text1=text.split() 
     newtest = " ".join(str(x) for x in text1)
-    return newtest
+    #return newtest
     #print("length is",len(text1))
     #For appending or store the results 
     #return newtest
@@ -217,4 +217,4 @@ def ocr_default(img_file, preprocess) :
     #file = open("C:/Users/pallavi.pundir/Documents/selected_images_text.txt","w") 
     #file.write(finalz) 
     #file.close()
-    #return finalz
+    return finalz
