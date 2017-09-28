@@ -90,7 +90,7 @@ def ocr_default(img_file, preprocess) :
     
     text1=text.split() 
     newtest = " ".join(str(x) for x in text1)
-    #return newtest
+    return newtest
     #print("length is",len(text1))
     #For appending or store the results 
     #return newtest
@@ -209,4 +209,4 @@ def ocr_default(img_file, preprocess) :
     #return "\n".join(parsed_data).strip('"{}')
     #finalz=parsed_data.strip(' "{}')
     #finalz.split("\n")
-    return '\n'.join("{}: {}".format(attrib, regx) for attrib, regx in parsed_data.items())
+    #return '\n'.join("{}: {}".format(attrib, regx) for attrib, regx in parsed_data.items())
