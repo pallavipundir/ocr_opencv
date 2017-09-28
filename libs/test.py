@@ -209,4 +209,9 @@ def ocr_default(img_file, preprocess) :
     #return "\n".join(parsed_data).strip('"{}')
     #finalz=parsed_data.strip(' "{}')
     #finalz.split("\n")
-    return '\n'.join("{}: {}".format(attrib, regx) for attrib, regx in parsed_data.items())
+    #f = open('C:/Users/pallavi.pundir/Documents/selected_images_text.txt','r')
+    #message = f.read()
+    #print()
+    #f.close()
+    finalz='\n'.join("{}: {}".format(attrib, regx) for attrib, regx in parsed_data.items())
+    return finalz
