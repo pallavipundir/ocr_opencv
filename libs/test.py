@@ -132,7 +132,7 @@ def ocr_default(img_file, preprocess) :
     #print np.array(list(text))
     regexArray = {}
     regexArray['DL'] = r'(DL|[0-9])\s*\K[0-9]{8,10}\s*(?=[0-9]+\s*.*)|NUMBER\s*\K[A-Z0-9]{8,11}(?=\s*.*)'
-    regexArray['CLASS']=r'CLASS\s*\K[A-Z](?=.*)'
+    regexArray['CLASS']=r'C(I|L)ASS\s*\K[A-Z](?=.*)'
     regexArray['ISS']=r'(I|L)SS\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}|ISSUED\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)([0-9]{4}|[0-9\s]{4,5})'
     regexArray['EXP']=r'(EXP|EXPIRES)\s*\K[0-9 ]{2,}(\-|\/|L)[0-9]{2}(\-|\/)[0-9]{4}'
     regexArray['DOB']=r'(DOB|DATE\s*OF\s*BIRTH|ONE)\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}'
