@@ -141,7 +141,7 @@ def ocr_default(img_file, preprocess) :
     regexArray['NAME']=r'(DOB|ONE)\s*[0-9]{2}(\/|\-)[0-9]{2}(\/|\-)[0-9]{4}\s*([0-9]{1,2})?\s*\K[A-Z]+\s*([A-Z]+)?\s*([0-9]{1,2}|\'|_)?\s*[A-Z ]+(?=\s*[0-9]{1}\s*)|[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}\s*[0-9]{0,2}\s*[A-Z]+\s*[0-9]{0,2}\s*[A-Z\s]+(?=\s*[0-9]{1,2}\s*[0-9]{2,5})|(ARIZONA|RIZON)\s*DRIVER\s*LICENSE\s*\K[A-Z\s]+(?=[0-9]{1,5})'
    # regexArray['FATHER NAME']=r'[a-zA-Z ]'
     regexArray['ADDRESS']=r'(DOB|ONE|NOS)\s*[0-9]{2}(\/|\-)[0-9]{2}(\/|\-)[0-9]{4}\s*([0-9]{1,2})?\s*[A-Z]+\s*([A-Z]+)?\s*([0-9]{1,2}|\'|_)?\s*[A-Z ]+\s{1,2}([0-9]{1}\s{1,2})?\K[0-9]{3,6}\s*[A-Z]+(.*)TX\s*[0-9]{3,6}(\-[0-9]{4})?|((ARIZONA|RIZON)\s*DRIVER\s*LICENSE|ISSUED\s*[0-9]{2}\/[0-9]{2}\/[0-9]{4})\s*[A-Z\s]+\K[0-9]{3,6}.*AZ\s*[0-9]{3,6}(\s*\-[0-9]{2,4})?'
-    regexArray['GENDER']=r'(SEX)\s*(M|F)'
+    regexArray['GENDER']=r'(SEX(:)?)\s*(M|F)'
    
    # regexArray['INFO']=r'RESTRICTIONS\s+[a-zA-Z]+\sUEND\s+[a-zA-Z]+\n[0-9a-zA-Z]+\s+HGT\s[0-9]\/[0-9]{2}\s[0-9]{2}\s+[a-zA-Z]+\s(M|F)\s+[0-9]\.\s+[a-zA-Z]+\s[a-zA-Z]+'
     parsed_data = {}
@@ -196,7 +196,7 @@ def ocr_default(img_file, preprocess) :
     parsed_data['ISS']=re.sub('\s{2,}','',re.sub('[A-Z]+','',parsed_data['ISS']))
     parsed_data['EXP']=re.sub('\s{2,}','',re.sub('[A-Z]+','/',parsed_data['EXP']))
     parsed_data['DOB']=re.sub('\s{2,}','',re.sub('[A-Z]+','',parsed_data['DOB']))
-    parsed_data['GENDER']=re.sub('\s{2,}','',re.sub('(SEX)+','',parsed_data['GENDER']))
+    parsed_data['GENDER']=re.sub('\s{1,}','',re.sub('(SEX)+','',parsed_data['GENDER']))
     finaltext = strip_non_ascii(text)
     #finaltext=" \n".join(text1)
     
