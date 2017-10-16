@@ -19,7 +19,7 @@ def ocr_default(img_file, preprocess) :
     
     # Load image, resize width and height & then convert to grayscale
   
-    image = cv2.imread(img_file,1)
+    image = cv2.imread(img_file)
     #crop_img = image[130:800, 35:210]
     height, width = image.shape[:2]
     image = cv2.resize(image, (width*2, height*2), interpolation = cv2.INTER_CUBIC) 
@@ -43,37 +43,37 @@ def ocr_default(img_file, preprocess) :
 
     #enh = ImageEnhance.Contrast(image)
     #cv2.imwrite("E:/licence/img7.jpg",enh)
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    #gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     
     # check to see if we should apply thresholding to preprocess the image #
     #if preprocess == "thresh":
-    gray1 = cv2.threshold(gray, 0, 255,cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+    #gray = cv2.threshold(gray, 0, 255,cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
     
 
     # make a check to see if median blurring should be done to remove noise #
     #elif preprocess == "blur":
      #   gray = cv2.medianBlur(gray, 3)
-    kernel = np.ones((2,2),np.uint8)
-    dilation = cv2.erode(gray1,kernel,iterations =1)
-    cv2.imwrite("E:/licence/1.jpg",dilation)
+    #kernel = np.ones((2,2),np.uint8)
+    #dilation = cv2.erode(image,kernel,iterations =1)
+    #cv2.imwrite("E:/licence/1.jpg",dilation)
     #blur = cv2.GaussianBlur(img,(5,5),0)
     
 
-    dst = cv2.fastNlMeansDenoising(dilation,None,10,7,21)
+    dst = cv2.fastNlMeansDenoising(image,None,10,7,21)
     dst1 = cv2.fastNlMeansDenoising(dst,None,7,5,17)
     dst2 = cv2.fastNlMeansDenoising(dst1,None,7,5,17)
-    #b,g,r = cv2.split(dst2)           # get b,g,r
-    #rgb_dst = cv2.merge([r,g,b])     # switch it to rgb
+    b,g,r = cv2.split(dst2)           # get b,g,r
+    rgb_dst = cv2.merge([r,g,b])     # switch it to rgb
     #cv2.imwrite("E:/licence/2.jpg",dilation)
     kernel=np.zeros((5,5),np.float32)#Create the identity filter, but with the 1 shifted to the right!
     kernel[3,3]=2.0   #Identity, times two! 
     boxFilter=np.ones((5,5),np.float32)/91.0 # default is 81.0 Blurs an image using the box filter.
     kernel=kernel-boxFilter
-    custom=cv2.filter2D(dst2,-1,kernel)
+    custom=cv2.filter2D(rgb_dst,-1,kernel)
     
     
     #equ = cv2.equalizeHist(custom)
-    #cv2.imwrite("E:/licence/2.jpg",equ)
+    #cv2.imwrite("E:/licence/6.jpg",custom)
     
     # write the grayscale image to disk as a temporary file so we can apply OCR to it #
 
@@ -82,7 +82,7 @@ def ocr_default(img_file, preprocess) :
 
     filename = "{}.png".format(os.getpid())
     cv2.imwrite(filename, custom)
-    cv2.imwrite("E:/licence/3.png",custom)
+    cv2.imwrite("E:/licence/2.png",custom)
 
     # load the image as a PIL/Pillow image, apply OCR, and then delete the temporary file #
     text = pytesseract.image_to_string(Image.open(filename)).upper()
@@ -92,7 +92,7 @@ def ocr_default(img_file, preprocess) :
     
     text1=text.split() 
     newtest = " ".join(str(x) for x in text1)
-    return newtest
+    #return newtest
     #print("length is",len(text1))
     #For appending or store the results 
     #return newtest
@@ -225,4 +225,4 @@ def ocr_default(img_file, preprocess) :
     #cv2.imshow("", img_file)
     #cv2.imshow("Person Identity", crop_img)
     #cv2.waitKey(0)
-    #return finalz
+    return finalz
