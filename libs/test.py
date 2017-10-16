@@ -92,7 +92,7 @@ def ocr_default(img_file, preprocess) :
     
     text1=text.split() 
     newtest = " ".join(str(x) for x in text1)
-    #return newtest
+    return newtest
     #print("length is",len(text1))
     #For appending or store the results 
     #return newtest
@@ -191,7 +191,7 @@ def ocr_default(img_file, preprocess) :
        # text=text.replace("/","-")
     #os.remove(filename)
     
-    parsed_data['NAME'] = re.sub('\s{2,}', ' ', re.sub('[(LN)? (FN)? 0-9\/_]+', '', parsed_data['NAME']))
+    parsed_data['NAME'] = re.sub('\s{2,}', ' ', re.sub('[0-9\/_]+', '', parsed_data['NAME']))
     parsed_data['DL']=re.sub('\s{2,}','',re.sub('[a-z]+','',parsed_data['DL']))
     parsed_data['ISS']=re.sub('\s{2,}','',re.sub('[A-Z]+','',parsed_data['ISS']))
     parsed_data['EXP']=re.sub('\s{2,}','',re.sub('[A-Z]+','/',parsed_data['EXP']))
@@ -225,4 +225,4 @@ def ocr_default(img_file, preprocess) :
     #cv2.imshow("", img_file)
     #cv2.imshow("Person Identity", crop_img)
     #cv2.waitKey(0)
-    return finalz
+    #return finalz
