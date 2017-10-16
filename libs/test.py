@@ -43,19 +43,19 @@ def ocr_default(img_file, preprocess) :
 
     #enh = ImageEnhance.Contrast(image)
     #cv2.imwrite("E:/licence/img7.jpg",enh)
-    #gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     
     # check to see if we should apply thresholding to preprocess the image #
     #if preprocess == "thresh":
-    #gray = cv2.threshold(gray, 0, 255,cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+    gray1 = cv2.threshold(gray, 0, 255,cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
     
 
     # make a check to see if median blurring should be done to remove noise #
     #elif preprocess == "blur":
      #   gray = cv2.medianBlur(gray, 3)
-    #kernel = np.ones((2,2),np.uint8)
-    #dilation = cv2.erode(image,kernel,iterations =1)
-    #cv2.imwrite("E:/licence/1.jpg",dilation)
+    kernel = np.ones((2,2),np.uint8)
+    dilation = cv2.erode(gray1,kernel,iterations =1)
+    cv2.imwrite("E:/licence/1.jpg",dilation)
     #blur = cv2.GaussianBlur(img,(5,5),0)
     
 
@@ -72,8 +72,8 @@ def ocr_default(img_file, preprocess) :
     custom=cv2.filter2D(rgb_dst,-1,kernel)
     
     
-    #equ = cv2.equalizeHist(custom)
-    #cv2.imwrite("E:/licence/6.jpg",custom)
+    equ = cv2.equalizeHist(custom)
+    cv2.imwrite("E:/licence/2.jpg",equ)
     
     # write the grayscale image to disk as a temporary file so we can apply OCR to it #
 
@@ -82,7 +82,7 @@ def ocr_default(img_file, preprocess) :
 
     filename = "{}.png".format(os.getpid())
     cv2.imwrite(filename, custom)
-    cv2.imwrite("E:/licence/2.png",custom)
+    cv2.imwrite("E:/licence/3.png",custom)
 
     # load the image as a PIL/Pillow image, apply OCR, and then delete the temporary file #
     text = pytesseract.image_to_string(Image.open(filename)).upper()
