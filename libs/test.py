@@ -60,8 +60,8 @@ def ocr_default(img_file, preprocess) :
     
 
     dst = cv2.fastNlMeansDenoising(image,None,10,7,21)
-    dst1 = cv2.fastNlMeansDenoising(dst,None,10,7,21)
-    dst2 = cv2.fastNlMeansDenoising(dst1,None,10,7,21)
+    dst1 = cv2.fastNlMeansDenoising(dst,None,7,5,17)
+    dst2 = cv2.fastNlMeansDenoising(dst1,None,7,5,17)
     b,g,r = cv2.split(dst2)           # get b,g,r
     rgb_dst = cv2.merge([r,g,b])     # switch it to rgb
     #cv2.imwrite("E:/licence/2.jpg",dilation)
@@ -70,7 +70,9 @@ def ocr_default(img_file, preprocess) :
     boxFilter=np.ones((5,5),np.float32)/91.0 # default is 81.0 Blurs an image using the box filter.
     kernel=kernel-boxFilter
     custom=cv2.filter2D(rgb_dst,-1,kernel)
-    
+    kernel1 = np.ones((2,2),np.uint8)
+    dilation = cv2.erode(custom,kernel1,iterations =1)
+    cv2.imwrite("E:/licence/test7.jpg",dilation)
     
     #equ = cv2.equalizeHist(custom)
     #cv2.imwrite("E:/licence/6.jpg",custom)
@@ -82,7 +84,7 @@ def ocr_default(img_file, preprocess) :
 
     filename = "{}.png".format(os.getpid())
     cv2.imwrite(filename, custom)
-    cv2.imwrite("E:/licence/test.png",custom)
+    cv2.imwrite("E:/licence/2.png",custom)
 
     # load the image as a PIL/Pillow image, apply OCR, and then delete the temporary file #
     text = pytesseract.image_to_string(Image.open(filename)).upper()
