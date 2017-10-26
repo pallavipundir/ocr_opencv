@@ -59,9 +59,9 @@ def ocr_default(img_file, preprocess) :
     #blur = cv2.GaussianBlur(img,(5,5),0)
     
 
-    dst = cv2.fastNlMeansDenoising(image,None,10,7,21)
-    dst1 = cv2.fastNlMeansDenoising(dst,None,7,5,17)
-    dst2 = cv2.fastNlMeansDenoising(dst1,None,7,5,17)
+    dst = cv2.fastNlMeansDenoisingColored(image,None,10,10,7,21)
+    dst1 = cv2.fastNlMeansDenoisingColored(dst,None,7,7,5,17)
+    dst2 = cv2.fastNlMeansDenoisingColored(dst1,None,7,7,5,17)
     b,g,r = cv2.split(dst2)           # get b,g,r
     rgb_dst = cv2.merge([r,g,b])     # switch it to rgb
     #cv2.imwrite("E:/licence/2.jpg",dilation)
