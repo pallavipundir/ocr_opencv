@@ -31,5 +31,25 @@ for i in xrange(3):
     plt.title(titles[i*3+2]), plt.xticks([]), plt.yticks([])
 plt.show()
 
-cv2.imwrite("F:/Softwares/PAn Card/p.jpg",th3)
+cv2.imwrite("F:/Softwares/PAn Card/p.jpg",blur)
 
+######################################### Sharpen ################################3
+import cv2 
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('F:/Softwares/PAn Card/p.jpg',0)
+
+cv2.imshow('Original', img)
+
+# generating the kernels
+kernel_sharpen_1 = np.array([[-1,-1,-1], [-1,9,-1], [-1,-1,-1]])
+
+
+# applying different kernels to the input image
+output_1 = cv2.filter2D(img, -1, kernel_sharpen_1)
+
+
+cv2.imshow('Sharpening', output_1)
+
+cv2.waitKey(0)

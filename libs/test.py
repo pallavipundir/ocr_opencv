@@ -29,14 +29,16 @@ def ocr_default(img_file, preprocess) :
     #dst = cv2.warpAffine(image,M,(width,height))
     #equ = cv2.equalizeHist(image)
     #cv2.imwrite("E:/licence/10.jpg",image)
+    th, im_th = cv2.threshold(image, 180, 255, cv2.THRESH_BINARY_INV)
     #thresh = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1] 
-    #cv2.imwrite("E:/licence/1.jpg",thresh)
-   
+    cv2.imwrite("E:/licence/tl.jpg",im_th)
+    thresh=image.fill(255)
+    cv2.imwrite("E:/licence/tt.jpg",thresh)
     # edge detection
     #edges = cv2.Canny(thresh,2,100, apertureSize = 3)
     #cv2.imwrite("E:/licence/2.jpg",edges)
     # fill the holes from detected edges
-
+    
    # 
     #dilate = cv2.dilate(thresh, kernel, iterations=1)
     #cv2.imwrite("E:/licence/3.jpg",dilate)
@@ -70,18 +72,28 @@ def ocr_default(img_file, preprocess) :
     boxFilter=np.ones((5,5),np.float32)/91.0 # default is 81.0 Blurs an image using the box filter.
     kernel=kernel-boxFilter
     custom=cv2.filter2D(rgb_dst,-1,kernel)
-    kernel1 = np.ones((2,2),np.uint8)
-    dilation = cv2.erode(custom,kernel1,iterations =1)
-    cv2.imwrite("E:/licence/test7.jpg",dilation)
+    #kernel1 = np.ones((2,2),np.uint8)
+    #dilation = cv2.erode(custom,kernel1,iterations =1)
+    #cv2.imwrite("E:/licence/test8.jpg",dilation)
     
     #equ = cv2.equalizeHist(custom)
     #cv2.imwrite("E:/licence/6.jpg",custom)
     
     # write the grayscale image to disk as a temporary file so we can apply OCR to it #
 
+    # generating the kernels
+    
+    #kernel_sharpen_1 = np.array([[-1,-1,-1], [-1,9,-1], [-1,-1,-1]])
 
+
+    # applying different kernels to the input image
+    #output_1 = cv2.filter2D(dilation, -1, kernel_sharpen_1)
+    #cv2.imwrite("E:/licence/test9.jpg",output_1)
   #  filename = "E:/OCR_Work/ocr_opencv/storage/files/{}.png".format(os.getpid())
-
+    #bilateral = cv2.bilateralFilter(custom,15,75,75)
+    #
+    # cv2.imwrite("E:/licence/test10.jpg",bilateral)
+     # write the grayscale image to disk as a temporary file so we can apply OCR to it #
     filename = "{}.png".format(os.getpid())
     cv2.imwrite(filename, custom)
     cv2.imwrite("E:/licence/2.png",custom)
