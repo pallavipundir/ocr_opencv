@@ -21,17 +21,28 @@ def ocr_default(img_file, preprocess) :
   
     image = cv2.imread(img_file)
     #crop_img = image[130:800, 35:210]
+    
     height, width = image.shape[:2]
-    image = cv2.resize(image, (width*2, height*2), interpolation = cv2.INTER_CUBIC) 
+    #print height
+    #print width
+    image = cv2.resize(image, (width*2, height*2), interpolation = cv2.INTER_CUBIC)
+    
+    #print height
+    #print width
+    #height, width, _ = img.shape  
     #resized_image = cv2.resize(image, (, 100))
     #rows,cols = image.shape
+    #print rows,cols
     #M = cv2.getRotationMatrix2D((width/2,height/2),360,1)
     #dst = cv2.warpAffine(image,M,(width,height))
     #equ = cv2.equalizeHist(image)
     #cv2.imwrite("E:/licence/10.jpg",image)
     #th, im_th = cv2.threshold(image, 180, 255, cv2.THRESH_BINARY_INV)
     #thresh = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1] 
-    #cv2.imwrite("E:/licence/tl.jpg",im_th)
+    #cv2.imwrite("E:/licence/height.txt",height)
+    #cv2.imwrite("E:/licence/width.txt",width)
+    
+
     #thresh=image.fill(255)
     #cv2.imwrite("E:/licence/tt.jpg",thresh)
     # edge detection
@@ -106,7 +117,7 @@ def ocr_default(img_file, preprocess) :
     #return text
     text1=text.split() 
     newtest = " ".join(str(x) for x in text1)
-    return newtest
+    #return newtest
     #print("length is",len(text1))
     #For appending or store the results 
     #return newtest
@@ -278,4 +289,4 @@ def ocr_default(img_file, preprocess) :
     #cv2.imshow("", img_file)
     #cv2.imshow("Person Identity", crop_img)
     #cv2.waitKey(0)
-    #return finalz
+    return finalz
