@@ -29,11 +29,11 @@ def ocr_default(img_file, preprocess) :
     #dst = cv2.warpAffine(image,M,(width,height))
     #equ = cv2.equalizeHist(image)
     #cv2.imwrite("E:/licence/10.jpg",image)
-    th, im_th = cv2.threshold(image, 180, 255, cv2.THRESH_BINARY_INV)
+    #th, im_th = cv2.threshold(image, 180, 255, cv2.THRESH_BINARY_INV)
     #thresh = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1] 
-    cv2.imwrite("E:/licence/tl.jpg",im_th)
-    thresh=image.fill(255)
-    cv2.imwrite("E:/licence/tt.jpg",thresh)
+    #cv2.imwrite("E:/licence/tl.jpg",im_th)
+    #thresh=image.fill(255)
+    #cv2.imwrite("E:/licence/tt.jpg",thresh)
     # edge detection
     #edges = cv2.Canny(thresh,2,100, apertureSize = 3)
     #cv2.imwrite("E:/licence/2.jpg",edges)
@@ -60,7 +60,7 @@ def ocr_default(img_file, preprocess) :
     #cv2.imwrite("E:/licence/1.jpg",dilation)
     #blur = cv2.GaussianBlur(img,(5,5),0)
     
-
+    
     dst = cv2.fastNlMeansDenoising(image,None,10,7,21)
     dst1 = cv2.fastNlMeansDenoising(dst,None,7,5,17)
     dst2 = cv2.fastNlMeansDenoising(dst1,None,7,5,17)
@@ -68,7 +68,7 @@ def ocr_default(img_file, preprocess) :
     rgb_dst = cv2.merge([r,g,b])     # switch it to rgb
     #cv2.imwrite("E:/licence/2.jpg",dilation)
     kernel=np.zeros((5,5),np.float32)#Create the identity filter, but with the 1 shifted to the right!
-    kernel[3,3]=2.0   #Identity, times two! 
+    kernel[4,4]=2.0   #Identity, times two! 
     boxFilter=np.ones((5,5),np.float32)/91.0 # default is 81.0 Blurs an image using the box filter.
     kernel=kernel-boxFilter
     custom=cv2.filter2D(rgb_dst,-1,kernel)
@@ -106,7 +106,7 @@ def ocr_default(img_file, preprocess) :
     #return text
     text1=text.split() 
     newtest = " ".join(str(x) for x in text1)
-    return newtest
+    #return newtest
     #print("length is",len(text1))
     #For appending or store the results 
     #return newtest
@@ -276,4 +276,4 @@ def ocr_default(img_file, preprocess) :
     #cv2.imshow("", img_file)
     #cv2.imshow("Person Identity", crop_img)
     #cv2.waitKey(0)
-    #return finalz
+    return finalz
