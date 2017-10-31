@@ -21,35 +21,30 @@ def ocr_default(img_file, preprocess) :
   
     image = cv2.imread(img_file)
     #crop_img = image[130:800, 35:210]
-    
     height, width = image.shape[:2]
-    #print height
-    #print width
-    image = cv2.resize(image, (width*2, height*2), interpolation = cv2.INTER_CUBIC)
-    
-    print height
-    print width
-    #height, width, _ = img.shape  
+    image = cv2.resize(image, (width*2, height*2), interpolation = cv2.INTER_CUBIC) 
     #resized_image = cv2.resize(image, (, 100))
     #rows,cols = image.shape
-    #print rows,cols
     #M = cv2.getRotationMatrix2D((width/2,height/2),360,1)
     #dst = cv2.warpAffine(image,M,(width,height))
     #equ = cv2.equalizeHist(image)
     #cv2.imwrite("E:/licence/10.jpg",image)
-    #th, im_th = cv2.threshold(image, 180, 255, cv2.THRESH_BINARY_INV)
     #thresh = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1] 
-    #cv2.imwrite("E:/licence/height.txt",height)
-    #cv2.imwrite("E:/licence/width.txt",width)
-    
+    #cv2.imwrite("E:/licence/1.jpg",thresh)
+    blur = cv2.GaussianBlur(image,(5,5),0)
+    #ret3,th3 = cv2.threshold(blur,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    # generating the kernels
+    kernel_sharpen_1 = np.array([[-1,-1,-1], [-1,9,-1], [-1,-1,-1]])
 
-    #thresh=image.fill(255)
-    #cv2.imwrite("E:/licence/tt.jpg",thresh)
+
+    # applying different kernels to the input image
+    output_1 = cv2.filter2D(blur, -1, kernel_sharpen_1)
+    cv2.imwrite("F:/Softwares/PAn Card/p1.jpg",output_1)
     # edge detection
     #edges = cv2.Canny(thresh,2,100, apertureSize = 3)
     #cv2.imwrite("E:/licence/2.jpg",edges)
     # fill the holes from detected edges
-    
+
    # 
     #dilate = cv2.dilate(thresh, kernel, iterations=1)
     #cv2.imwrite("E:/licence/3.jpg",dilate)
@@ -71,7 +66,7 @@ def ocr_default(img_file, preprocess) :
     #cv2.imwrite("E:/licence/1.jpg",dilation)
     #blur = cv2.GaussianBlur(img,(5,5),0)
     
-    
+
     dst = cv2.fastNlMeansDenoising(image,None,10,7,21)
     dst1 = cv2.fastNlMeansDenoising(dst,None,7,5,17)
     dst2 = cv2.fastNlMeansDenoising(dst1,None,7,5,17)
@@ -83,28 +78,17 @@ def ocr_default(img_file, preprocess) :
     boxFilter=np.ones((5,5),np.float32)/91.0 # default is 81.0 Blurs an image using the box filter.
     kernel=kernel-boxFilter
     custom=cv2.filter2D(rgb_dst,-1,kernel)
-    #kernel1 = np.ones((2,2),np.uint8)
-    #dilation = cv2.erode(custom,kernel1,iterations =1)
-    #cv2.imwrite("E:/licence/test8.jpg",dilation)
     
+    
+
     #equ = cv2.equalizeHist(custom)
     #cv2.imwrite("E:/licence/6.jpg",custom)
     
     # write the grayscale image to disk as a temporary file so we can apply OCR to it #
 
-    # generating the kernels
-    
-    #kernel_sharpen_1 = np.array([[-1,-1,-1], [-1,9,-1], [-1,-1,-1]])
 
-
-    # applying different kernels to the input image
-    #output_1 = cv2.filter2D(dilation, -1, kernel_sharpen_1)
-    #cv2.imwrite("E:/licence/test9.jpg",output_1)
   #  filename = "E:/OCR_Work/ocr_opencv/storage/files/{}.png".format(os.getpid())
-    #bilateral = cv2.bilateralFilter(custom,15,75,75)
-    #
-    # cv2.imwrite("E:/licence/test10.jpg",bilateral)
-     # write the grayscale image to disk as a temporary file so we can apply OCR to it #
+
     filename = "{}.png".format(os.getpid())
     cv2.imwrite(filename, custom)
     cv2.imwrite("E:/licence/2.png",custom)
@@ -117,7 +101,7 @@ def ocr_default(img_file, preprocess) :
     #return text
     text1=text.split() 
     newtest = " ".join(str(x) for x in text1)
-    #return newtest
+    return newtest
     #print("length is",len(text1))
     #For appending or store the results 
     #return newtest
@@ -172,14 +156,12 @@ def ocr_default(img_file, preprocess) :
 
 
 
-#For pan card 
-#if newtest=="INCOME TAX|INCOMETAX":
-    #if regexArray['PAN NUMBER']:
-       # regexArray['NAME']=r'(INDIA EH F|INCOME TAX DEPARTMENT CI GOVT(.)? OF INDIA TV |INCOME TAX DEPARTMENT|INCOMETAX DEPARTMENT|GOVT(.)? OF INDIA|INCOME TAX DEPARTMENT GOVT(.)? OF INDIA|INCOME TAX DEPARTMENT (_\')? GOVT(.)? OF INDIA|NZMRMNXR)\s*\K[A-Z]+\s[A-Z]+'
-        #regexArray['DOB']=r'[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4}|[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9]\s*[0-9]{3}'
-        #regexArray['PAN NUMBER']=r'(NUMBET|NUMBER|NUMHRAN|NU-OR)\s*\K[A-Z 0-9A-Z]{10,11}'
-        #regexArray['FATHER NAME']=r'[A-Z]{3,15}\s*[A-Z]+\s*([0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4})|[A-Z]{3,15}\s*[A-Z]+\s*[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9]\s*[0-9]{3}'
-
+#For pan card   
+    #regexArray['NAME']=r'(INDIA EH F|INCOME TAX DEPARTMENT CI GOVT(.)? OF INDIA TV |INCOME TAX DEPARTMENT|INCOMETAX DEPARTMENT|GOVT(.)? OF INDIA|INCOME TAX DEPARTMENT GOVT(.)? OF INDIA|INCOME TAX DEPARTMENT (_\')? GOVT(.)? OF INDIA|NZMRMNXR)\s*\K[A-Z]+\s[A-Z]+'
+    #regexArray['DOB']=r'[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4}|[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9]\s*[0-9]{3}'
+    #regexArray['PAN NUMBER']=r'(NUMBER|NUMHRAN|NU-OR)\s*\K[A-Z 0-9A-Z]{10,11}'
+    #regexArray['FATHER NAME']=r'[A-Z]{3,15}\s*[A-Z]+\s*([0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4})|[A-Z]{3,15}\s*[A-Z]+\s*[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9]\s*[0-9]{3}'
+    
 
 # for aadhar card
 
@@ -248,7 +230,7 @@ def ocr_default(img_file, preprocess) :
 
 #parsed data for PAN CARD
 
-    #parsed_data['NAME']=re.sub('\s{1,}', ' ', re.sub('[0-9\/_\']+', '', parsed_data['NAME']))
+    #parsed_data['NAME']=re.sub('\s{2,}', ' ', re.sub('[0-9\/_\']+', '', parsed_data['NAME']))
     #parsed_data['DOB']=re.sub('\s{1,2}','',re.sub('[A-Z]+','/',parsed_data['DOB']))
     #parsed_data['PAN NUMBER']=re.sub('\s{1,}','',parsed_data['PAN NUMBER'])
     #parsed_data['FATHER NAME']=re.sub('\s{2,}','',re.sub('[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4}|[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9]\s*[0-9]{3}','',parsed_data['FATHER NAME']))
@@ -289,4 +271,4 @@ def ocr_default(img_file, preprocess) :
     #cv2.imshow("", img_file)
     #cv2.imshow("Person Identity", crop_img)
     #cv2.waitKey(0)
-    return finalz
+    #return finalz

@@ -5,7 +5,7 @@ def strip_non_ascii(string):
     stripped = (c for c in string if 0 < ord(c) < 127)
     return ''.join(stripped)
 
-def ocr_default(img_file, preprocess) :
+def ocr_aadhar(img_file, preprocess) :
     from PIL import Image
     import pytesseract
     import cv2
@@ -158,15 +158,15 @@ def ocr_default(img_file, preprocess) :
     #return text
     #print np.array(list(text))
     regexArray = {}
-    regexArray['DL'] = r'(DL|[0-9]|[a-zA-Z])\s*\K[A-Za-z0-9]{8,10}\s*(?=[0-9]+\s*.*)|NUMBER\s*\K[A-Z0-9]{8,11}(?=\s*.*)'
-    regexArray['CLASS']=r'C(I|L)ASS(:)?\s*\K[A-Z](?=.*)'
-    regexArray['ISS']=r'(I|L)SS\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}|ISSUED\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)([0-9]{4}|[0-9\s]{4,5})'
-    regexArray['EXP']=r'(EXP|EXP(IR|U)ES)\s*\K[0-9 ]{2,}(\-|\/|L)[0-9]{2}(\-|\/)[0-9]{4}'
-    regexArray['DOB']=r'(DOB|DATE\s*OF\s*BIRTH|ONE|NOS)(:)?\s*\K[0-9]{2}(\-|\/|I)[0-9]{2}(\-|\/|I)[0-9]{4}'
-    regexArray['NAME']=r'(DOB|ONE)\s*[0-9]{2}(\/|\-)[0-9]{2}(\/|\-)[0-9]{4}\s*([0-9]{1,2})?\s*\K[A-Z]+\s*([A-Z]+)?\s*([0-9]{1,2}|\'|_)?\s*[A-Z ]+(?=\s*[0-9]{1}\s*)|[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}\s*[0-9]{0,2}\s*[A-Z]+\s*[0-9]{0,2}\s*[A-Z\s]+(?=\s*[0-9]{1,2}\s*[0-9]{2,5})|(ARIZONA|RIZON)\s*DRIVER\s*LICENSE\s*\K[A-Z\s]+(?=[0-9]{1,5})|(LN)\s*[a-zA-Z]+\s*(FN)\s*[a-zA-Z ]+'
+    #regexArray['DL'] = r'(DL|[0-9]|[a-zA-Z])\s*\K[A-Za-z0-9]{8,10}\s*(?=[0-9]+\s*.*)|NUMBER\s*\K[A-Z0-9]{8,11}(?=\s*.*)'
+    #regexArray['CLASS']=r'C(I|L)ASS(:)?\s*\K[A-Z](?=.*)'
+    #regexArray['ISS']=r'(I|L)SS\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}|ISSUED\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)([0-9]{4}|[0-9\s]{4,5})'
+    #regexArray['EXP']=r'(EXP|EXP(IR|U)ES)\s*\K[0-9 ]{2,}(\-|\/|L)[0-9]{2}(\-|\/)[0-9]{4}'
+    #regexArray['DOB']=r'(DOB|DATE\s*OF\s*BIRTH|ONE|NOS)(:)?\s*\K[0-9]{2}(\-|\/|I)[0-9]{2}(\-|\/|I)[0-9]{4}'
+    #regexArray['NAME']=r'(DOB|ONE)\s*[0-9]{2}(\/|\-)[0-9]{2}(\/|\-)[0-9]{4}\s*([0-9]{1,2})?\s*\K[A-Z]+\s*([A-Z]+)?\s*([0-9]{1,2}|\'|_)?\s*[A-Z ]+(?=\s*[0-9]{1}\s*)|[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}\s*[0-9]{0,2}\s*[A-Z]+\s*[0-9]{0,2}\s*[A-Z\s]+(?=\s*[0-9]{1,2}\s*[0-9]{2,5})|(ARIZONA|RIZON)\s*DRIVER\s*LICENSE\s*\K[A-Z\s]+(?=[0-9]{1,5})|(LN)\s*[a-zA-Z]+\s*(FN)\s*[a-zA-Z ]+'
     #regexArray['FATHER NAME']=r'[a-zA-Z ]'
-    regexArray['ADDRESS']=r'(DOB|ONE|NOS|EXP)\s*[0-9]{2}(\/|\-)[0-9]{2}(\/|\-)[0-9]{4}\s*([0-9]{1,2})?\s*[A-Z]+\s*([A-Z]+)?\s*([0-9]{1,2}|\'|_)?\s*[A-Z ]+\s{1,2}([0-9]{1}\s{1,2})?\K[0-9]{3,6}\s*[A-Z]+(.*)TX\s*[0-9]{3,6}(\-[0-9]{4})?|((ARIZONA|RIZON)\s*DRIVER\s*LICENSE|ISSUED\s*[0-9]{2}\/[0-9]{2}\/[0-9]{4})\s*[A-Z\s]+\K[0-9]{3,6}.*AZ\s*[0-9]{3,6}(\s*\-[0-9]{2,4})?'
-    regexArray['GENDER']=r'(SEX)(:)?\s*(M|F)'
+    #regexArray['ADDRESS']=r'(DOB|ONE|NOS|EXP)\s*[0-9]{2}(\/|\-)[0-9]{2}(\/|\-)[0-9]{4}\s*([0-9]{1,2})?\s*[A-Z]+\s*([A-Z]+)?\s*([0-9]{1,2}|\'|_)?\s*[A-Z ]+\s{1,2}([0-9]{1}\s{1,2})?\K[0-9]{3,6}\s*[A-Z]+(.*)TX\s*[0-9]{3,6}(\-[0-9]{4})?|((ARIZONA|RIZON)\s*DRIVER\s*LICENSE|ISSUED\s*[0-9]{2}\/[0-9]{2}\/[0-9]{4})\s*[A-Z\s]+\K[0-9]{3,6}.*AZ\s*[0-9]{3,6}(\s*\-[0-9]{2,4})?'
+    #regexArray['GENDER']=r'(SEX)(:)?\s*(M|F)'
    
    # regexArray['INFO']=r'RESTRICTIONS\s+[a-zA-Z]+\sUEND\s+[a-zA-Z]+\n[0-9a-zA-Z]+\s+HGT\s[0-9]\/[0-9]{2}\s[0-9]{2}\s+[a-zA-Z]+\s(M|F)\s+[0-9]\.\s+[a-zA-Z]+\s[a-zA-Z]+'
 
@@ -183,11 +183,11 @@ def ocr_default(img_file, preprocess) :
 
 # for aadhar card
 
-    #regexArray['NAME']=r'(INDIA EH F|WW)\s*\K[A-Z]+\s[A-Z]+'
-    #regexArray['DOB']=r'[A-Z](\s*)?[0-9](\s*)?(\-|\/|I)[A-Z](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4}|[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9](\s*)?[0-9]{3}'
-    #regexArray['AADHAAR NUMBER']=r'[0-9 ]{15}'
+    regexArray['NAME']=r'(INDIA EH F|WW)\s*\K[A-Z]+\s[A-Z]+'
+    regexArray['DOB']=r'[A-Z](\s*)?[0-9](\s*)?(\-|\/|I)[A-Z](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4}|[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9](\s*)?[0-9]{3}'
+    regexArray['AADHAAR NUMBER']=r'[0-9 ]{15}'
     #regexArray['FATHER NAME']=r'[A-Z]{3,15}\s*[A-Z]+\s*([0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4})|[A-Z]{3,15}\s*[A-Z]+\s*[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9]\s*[0-9]{3}'    
-    #regexArray['GENDER']=r'\/[MALE|FEMALE]+'
+    regexArray['GENDER']=r'\/[MALE|FEMALE]+'
     #regexArray['ADDRESS']=r'(S/O:)\s[A-Z ]+(\,)?\s[A-Z]\-[0-9]\/[0-9]+\s[A-Z]+\s[A-Z ]+(\,)?[A-Z ]+(\.\s)?[A-Z ]+(\,\s)?[A-Z ]+(\.\s)?[A-Z ]+(\,\s)?[A-Z ]+(\-\s)?[0-9 ]+'
    
     parsed_data = {}
@@ -239,12 +239,12 @@ def ocr_default(img_file, preprocess) :
 
 #parsed data for DL
 
-    parsed_data['NAME'] = re.sub('\s{2,}', ' ', re.sub('[0-9\/_]+', '', parsed_data['NAME']))
-    parsed_data['DL']=re.sub('\s{2,}','',re.sub('[a-z]+','',parsed_data['DL']))
-    parsed_data['ISS']=re.sub('\s{2,}','',re.sub('[A-Z]+','',parsed_data['ISS']))
-    parsed_data['EXP']=re.sub('\s{2,}','',re.sub('[A-Z]+','/',parsed_data['EXP']))
-    parsed_data['DOB']=re.sub('\s{2,}','',re.sub('[A-Z]+','/',parsed_data['DOB']))
-    parsed_data['GENDER']=re.sub('\s{1,}','',re.sub('[SEX(:)?]+','',parsed_data['GENDER']))
+    #parsed_data['NAME'] = re.sub('\s{2,}', ' ', re.sub('[0-9\/_]+', '', parsed_data['NAME']))
+    #parsed_data['DL']=re.sub('\s{2,}','',re.sub('[a-z]+','',parsed_data['DL']))
+    #parsed_data['ISS']=re.sub('\s{2,}','',re.sub('[A-Z]+','',parsed_data['ISS']))
+    #parsed_data['EXP']=re.sub('\s{2,}','',re.sub('[A-Z]+','/',parsed_data['EXP']))
+    #parsed_data['DOB']=re.sub('\s{2,}','',re.sub('[A-Z]+','/',parsed_data['DOB']))
+    #parsed_data['GENDER']=re.sub('\s{1,}','',re.sub('[SEX(:)?]+','',parsed_data['GENDER']))
 
 #parsed data for PAN CARD
 
@@ -255,11 +255,11 @@ def ocr_default(img_file, preprocess) :
 
 #parsed data for AADHAAR NUMBER
 
-    #parsed_data['NAME']=re.sub('\s{2,}', ' ', re.sub('[0-9\/_\']+', '', parsed_data['NAME']))
-    #parsed_data['DOB']=re.sub('\s{1,2}','',re.sub('[A-Z]+','0',parsed_data['DOB']))
-    #parsed_data['AADHAAR NUMBER']=re.sub('\s{1,}','',parsed_data['AADHAAR NUMBER'])
-   # parsed_data['FATHER NAME']=re.sub('\s{2,}','',re.sub('','',parsed_data['FATHER NAME']))
-    #parsed_data['GENDER']=re.sub('\s{2,}','',re.sub('\/','',parsed_data['GENDER']))
+    parsed_data['NAME']=re.sub('\s{2,}', ' ', re.sub('[0-9\/_\']+', '', parsed_data['NAME']))
+    parsed_data['DOB']=re.sub('\s{1,2}','',re.sub('[A-Z]+','0',parsed_data['DOB']))
+    parsed_data['AADHAAR NUMBER']=re.sub('\s{1,}','',parsed_data['AADHAAR NUMBER'])
+    #parsed_data['FATHER NAME']=re.sub('\s{2,}','',re.sub('','',parsed_data['FATHER NAME']))
+    parsed_data['GENDER']=re.sub('\s{2,}','',re.sub('\/','',parsed_data['GENDER']))
     #parsed_data['ADDRESS']=re.sub('\.','\n',re.sub('[A-Z]\-[0-9]\/[0-9]+\s*\K[A-Z]+','',parsed_data['ADDRESS']))
     finaltext = strip_non_ascii(text)
     #finaltext=" \n".join(text1)
