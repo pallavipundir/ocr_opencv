@@ -61,7 +61,7 @@ def ocr_pan(img_file, preprocess) :
     #return text
     text1=text.split() 
     newtest = " ".join(str(x) for x in text1)
-    return newtest
+    #return newtest
     
     
     
@@ -122,4 +122,4 @@ def ocr_pan(img_file, preprocess) :
     finalz='\n'.join("{}: {}".format(attrib, regx) for attrib, regx in parsed_data.items())
     
     #cv2.waitKey(0)
-    #return finalz
+    return finalz
