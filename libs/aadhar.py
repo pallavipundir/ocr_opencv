@@ -256,7 +256,7 @@ def ocr_aadhar(img_file, preprocess) :
 #parsed data for AADHAAR NUMBER
 
     parsed_data['NAME']=re.sub('\s{2,}', ' ', re.sub('[0-9\/_\']+', '', parsed_data['NAME']))
-    parsed_data['DOB']=re.sub('\s{1,2}','',re.sub('[A-Z]+','0',parsed_data['DOB']))
+    parsed_data['DOB/YEAR OF BIRTH']=re.sub('\s{1,2}','',re.sub('[A-Z]+','0',parsed_data['DOB/YEAR OF BIRTH']))
     parsed_data['AADHAAR NUMBER']=re.sub('\s{1,}','',parsed_data['AADHAAR NUMBER'])
     #parsed_data['FATHER NAME']=re.sub('\s{2,}','',re.sub('','',parsed_data['FATHER NAME']))
     parsed_data['GENDER']=re.sub('\s{2,}','',re.sub('\/GQRRI','',parsed_data['GENDER']))
