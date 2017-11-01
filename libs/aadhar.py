@@ -117,7 +117,7 @@ def ocr_aadhar(img_file, preprocess) :
     #return text
     text1=text.split() 
     newtest = " ".join(str(x) for x in text1)
-    return newtest
+    #return newtest
     #print("length is",len(text1))
     #For appending or store the results 
     #return newtest
@@ -183,11 +183,11 @@ def ocr_aadhar(img_file, preprocess) :
 
 # for aadhar card
 
-    regexArray['NAME']=r'(WW R|INDIA EH F|[0-9]{9})\s*\K[A-Z]+\s[A-Z]+|[A-Z ]+\K(WI\/)'
-    regexArray['DOB']=r'[A-Z](\s*)?[0-9](\s*)?(\-|\/|I)[A-Z](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4}|[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9](\s*)?[0-9]{3}'
+    regexArray['NAME']=r'(WW R|INDIA EH F|[0-9]{9}|[0-9]{2,3}(::)?)(\s*)?\K[A-Z]+\s[A-Z]+|[A-Z ]+(WI\/)'
+    regexArray['DOB/YEAR OF BIRTH']=r'[A-Z](\s*)?[0-9](\s*)?(\-|\/|I)[A-Z](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4}|[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9](\s*)?[0-9]{3}|(YEAR OF BIRTH)\s*(:)?\s*\K[0-9]+'
     regexArray['AADHAAR NUMBER']=r'[0-9 ]{15}'
     #regexArray['FATHER NAME']=r'[A-Z]{3,15}\s*[A-Z]+\s*([0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4})|[A-Z]{3,15}\s*[A-Z]+\s*[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9]\s*[0-9]{3}'    
-    regexArray['GENDER']=r'(GM I|QRR I|\/|\/ )\K[MALE|FEMALE]+'
+    regexArray['GENDER']=r'(GM I|QRR I|\/|\/ )(/s*)?\K[MALE|FEMALE]+'
     #regexArray['ADDRESS']=r'(S/O:)\s[A-Z ]+(\,)?\s[A-Z]\-[0-9]\/[0-9]+\s[A-Z]+\s[A-Z ]+(\,)?[A-Z ]+(\.\s)?[A-Z ]+(\,\s)?[A-Z ]+(\.\s)?[A-Z ]+(\,\s)?[A-Z ]+(\-\s)?[0-9 ]+'
    
     parsed_data = {}
@@ -259,7 +259,7 @@ def ocr_aadhar(img_file, preprocess) :
     parsed_data['DOB']=re.sub('\s{1,2}','',re.sub('[A-Z]+','0',parsed_data['DOB']))
     parsed_data['AADHAAR NUMBER']=re.sub('\s{1,}','',parsed_data['AADHAAR NUMBER'])
     #parsed_data['FATHER NAME']=re.sub('\s{2,}','',re.sub('','',parsed_data['FATHER NAME']))
-    parsed_data['GENDER']=re.sub('\s{2,}','',re.sub('\/I','',parsed_data['GENDER']))
+    parsed_data['GENDER']=re.sub('\s{2,}','',re.sub('\/GQRRI','',parsed_data['GENDER']))
     #parsed_data['ADDRESS']=re.sub('\.','\n',re.sub('[A-Z]\-[0-9]\/[0-9]+\s*\K[A-Z]+','',parsed_data['ADDRESS']))
     finaltext = strip_non_ascii(text)
     #finaltext=" \n".join(text1)
@@ -289,4 +289,4 @@ def ocr_aadhar(img_file, preprocess) :
     #cv2.imshow("", img_file)
     #cv2.imshow("Person Identity", crop_img)
     #cv2.waitKey(0)
-    #return finalz
+    return finalz
