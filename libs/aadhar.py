@@ -183,7 +183,7 @@ def ocr_aadhar(img_file, preprocess) :
 
 # for aadhar card
 
-    regexArray['NAME']=r'(WW R|INDIA EH F|[0-9]{9})\s*\K[A-Z]+\s[A-Z]+|[A-Z ]+(WI\/)'
+    regexArray['NAME']=r'(WW R|INDIA EH F|[0-9]{9})\s*\K[A-Z]+\s[A-Z]+|[A-Z ]+\K(WI\/)'
     regexArray['DOB']=r'[A-Z](\s*)?[0-9](\s*)?(\-|\/|I)[A-Z](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4}|[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9](\s*)?[0-9]{3}'
     regexArray['AADHAAR NUMBER']=r'[0-9 ]{15}'
     #regexArray['FATHER NAME']=r'[A-Z]{3,15}\s*[A-Z]+\s*([0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4})|[A-Z]{3,15}\s*[A-Z]+\s*[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9]\s*[0-9]{3}'    
