@@ -120,7 +120,7 @@ def ocr_default(img_file, preprocess) :
     #return newtest
     #print("length is",len(text1))
     #For appending or store the results 
-    #return newtest
+    return newtest
 
     
     #output_join = [text1[0],"Texas",text1[1],text1[2],text1[3],text1[4],text1[5],text1[6],text1[7],text1[8],text1[9],text1[10],text1[11],text1[12],text1[13],text1[14],text1[15],text1[16],text1[17],text1[18]] 
@@ -288,4 +288,4 @@ def ocr_default(img_file, preprocess) :
     #cv2.imshow("", img_file)
     #cv2.imshow("Person Identity", crop_img)
     #cv2.waitKey(0)
-    return finalz
+    #return finalz
