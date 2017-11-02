@@ -120,7 +120,7 @@ def ocr_aadhar(img_file, preprocess) :
     #return newtest
     #print("length is",len(text1))
     #For appending or store the results 
-    return newtest
+    #return newtest
 
     
     #output_join = [text1[0],"Texas",text1[1],text1[2],text1[3],text1[4],text1[5],text1[6],text1[7],text1[8],text1[9],text1[10],text1[11],text1[12],text1[13],text1[14],text1[15],text1[16],text1[17],text1[18]] 
@@ -183,11 +183,11 @@ def ocr_aadhar(img_file, preprocess) :
 
 # for aadhar card
 
-    regexArray['NAME']=r'(WW R|INDIA EH F|[0-9]{9}|[0-9]{2,3}(::)?)(\s*)?\K[A-Z]+\s[A-Z]+|[A-Z ]+(WI\/)'
+    regexArray['NAME']=r'(WW R|INDIA EH F|[0-9]{9}|[0-9]{2,3}(::)?)(\s*)?\K[A-Z]+\s[A-Z]+|[A-Z ]+(?=WI\/)'
     regexArray['DOB/YEAR OF BIRTH']=r'[A-Z](\s*)?[0-9](\s*)?(\-|\/|I)[A-Z](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4}|[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9](\s*)?[0-9]{3}|(YEAR OF BIRTH)\s*(:)?\s*\K[0-9]+'
     regexArray['AADHAAR NUMBER']=r'[0-9 ]{15}'
     #regexArray['FATHER NAME']=r'[A-Z]{3,15}\s*[A-Z]+\s*([0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4})|[A-Z]{3,15}\s*[A-Z]+\s*[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9]\s*[0-9]{3}'    
-    regexArray['GENDER']=r'(GM I|QRR I|\/|\/ )(/s*)?\K[MALE|FEMALE]+'
+    regexArray['GENDER']=r'( I|QRR I|\/|\/ )(/s*)?\K[MALE|FEMALE]+'
     #regexArray['ADDRESS']=r'(S/O:)\s[A-Z ]+(\,)?\s[A-Z]\-[0-9]\/[0-9]+\s[A-Z]+\s[A-Z ]+(\,)?[A-Z ]+(\.\s)?[A-Z ]+(\,\s)?[A-Z ]+(\.\s)?[A-Z ]+(\,\s)?[A-Z ]+(\-\s)?[0-9 ]+'
    
     parsed_data = {}
@@ -289,4 +289,4 @@ def ocr_aadhar(img_file, preprocess) :
     #cv2.imshow("", img_file)
     #cv2.imshow("Person Identity", crop_img)
     #cv2.waitKey(0)
-    #return finalz
+    return finalz
