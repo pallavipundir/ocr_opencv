@@ -290,3 +290,6 @@ def ocr_aadhar(img_file, preprocess) :
     #cv2.imshow("Person Identity", crop_img)
     #cv2.waitKey(0)
     return finalz
+
+
+ 

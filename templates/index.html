@@ -3,16 +3,61 @@
   <head>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
           rel="stylesheet">
+		  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
           <title>OCR POC</title>
-  </head>
-  <body><center>
+		  <style>*{ margin: 0px; padding: 0px; outline:none; border:0px;}
+html {height:100%; width:100%; margin:0px; padding:0px}
+p{ margin: 0px; padding: 0px 0px 13px 0px;}
+body { margin: 0px; padding: 0px;  font-family: 'Open Sans', sans-serif; font-size: 12px; color: #333333; background-color:#f5f5f5; font-weight:normal; }
+a{color: #666; text-decoration:none }
+a:hover{ color:#333;  text-decoration:none}
+*, * focus {    margin: 0;     outline: medium none; }
+.clr{ clear:both}
+.clear{ clear:both}
+.clearfix:after {visibility: hidden; 	display: block; 	font-size: 0; 	content: " "; 	clear: both; 	height: 0; 	}
+* html .clearfix             { zoom: 1; } /* IE6 */
+*:first-child+html .clearfix { zoom: 1; } /* IE7 */
 
+#wrapperAll{width:100%; background:#f5f5f5}
+#wrapperAll header{padding:10px 0; background:#fff; margin:auto;}
+.wrapContent{width:1000px;margin:auto; padding:20px 0  20px 0;    text-align: center;}
+header .wrapContent{ padding:0; text-align: left;}
+.dotted{border:dashed 2px #ccc; padding:15px 25px 0 25px;}
+h1.text-muted{text-align:center; font-size:24px; font-weight:700; color:#333; margin:0 0 0 0; padding:20px 0 0 0;}
+.row{ margin:0 0 8px 0;}
+.row.btn{ padding:20px 0px; text-align:center;}
+.uploadBox{ width:40%; float:left; padding:10px 15px; border:solid 1px #ccc;}
+.uploadBox + .uploadBox{float:right;}
+.uploadBox h2{ padding:0 0 15px 0; margin:0 0 0 0}
+.btnrow input{  font-family: 'Open Sans', sans-serif;  font-size:18px; font-weight:700; border:0; background:#7daf23; color:#fff; display:inline-block; padding:10px 20px; border-radius:4px; cursor:pointer; margin-top:25px}
+.btnrow input:hover{opacity:0.9;}
+.frame{ text-align:center; background:#efefef; height:150px; overflow:hidden;}
+.frame img{ max-height:100%; width:auto;}
+.result { padding:0 0 25px 0}
+.result h2{ font-size:21px; text-align:left; font-weight:700px; padding:0 0 5px 0}
+.arrow{ background:url(images/arrow.png) no-repeat center center}
+.result .uploadBox .frame{ height:100px;}
+.bar{ height:20px; width:100%; border:solid 1px #7f9c4b; box-sizing:border-box;}
+.bar span{ background:#7daf23; display:inline-block; height:20px;}
+.lft{ float:left; font-size:16px; color:#333;}
+.rht{ float:right; font-size:16px; color:#333;}
+.barWrap{ overflow:hidden; margin-bottom:20px}
+input[type="file"]{ display:inline-block!important}
+form{ text-align:center}
+</style>
+  </head>
+  <body>
+
+  <div id="wrapperAll">
+<header><div class="wrapContent"><img src="../images/b2c-logo-1.png" width="200" alt="Biz2Credit" height="53"></div></header>
+<div class="wrapContent">
+<div class="dotted">  
     <div class="container">
       <div class="header">
         {% if img is defined %}
-        <h3 class="text-muted">Image Output</h3>
+        <h1 class="text-muted">Image Output</h1>
         {% else %}
-        <h3 class="text-muted">Upload Any Image File</h3>
+        <h1 class="text-muted">Upload Any Image File</h1>
         {% endif %}
       </div>
       <hr/>
@@ -22,7 +67,7 @@
           {% else %}
           <form action="images" method="post" enctype="multipart/form-data">
             <input type="file" name="file" value="Choose Your File"><br /><br />
-            <input type="submit" value="Upload">
+            <div class="btnrow"><input type="submit" value="Upload"></div>
           </form><br><br>
           {% endif %}
       </div>
@@ -40,7 +85,13 @@
         </div>
         {% endif %}
 
-  </center>
+
+
+
+</div></div></div>
+  
+
+
   </body>
 </html>
 
