@@ -117,7 +117,7 @@ def ocr_aadhar(img_file, preprocess) :
     #return text
     text1=text.split() 
     newtest = " ".join(str(x) for x in text1)
-    return newtest
+    #return newtest
     #print("length is",len(text1))
     #For appending or store the results 
     #return newtest
@@ -183,7 +183,7 @@ def ocr_aadhar(img_file, preprocess) :
 
 # for aadhar card
 
-    regexArray['NAME']=r'(WW R|INDIA EH F|[0-9]{9}|[0-9]{2,3}(::)?)(\s*)?\K[A-Z]+\s[A-Z]+|[A-Z ]+(?=WI\/)'
+    regexArray['NAME']=r'(MEW|WW R|INDIA EH F|[0-9]{9}|[0-9]{2,3}(::)?)(\s*)?\K[A-Z]+\s[A-Z]+|[A-Z ]+(?=WI\/)'
     regexArray['DOB/YEAR OF BIRTH']=r'[A-Z](\s*)?[0-9](\s*)?(\-|\/|I)[A-Z](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4}|[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9](\s*)?[0-9]{3}|(YEAR OF BIRTH)\s*(:)?\s*\K[0-9]+'
     regexArray['AADHAAR NUMBER']=r'[0-9 ]{15}'
     #regexArray['FATHER NAME']=r'[A-Z]{3,15}\s*[A-Z]+\s*([0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4})|[A-Z]{3,15}\s*[A-Z]+\s*[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9]\s*[0-9]{3}'    
@@ -289,7 +289,7 @@ def ocr_aadhar(img_file, preprocess) :
     #cv2.imshow("", img_file)
     #cv2.imshow("Person Identity", crop_img)
     #cv2.waitKey(0)
-   # return finalz
+    return finalz
 
 
  
