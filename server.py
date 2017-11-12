@@ -4,12 +4,7 @@
 import os , datetime , logging
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from werkzeug import secure_filename
-<<<<<<< HEAD
 from libs.same_link import ocr_default
-=======
-from libs.test import ocr_default
-
->>>>>>> 6b118bd0d795b552900ead9cde30add6ac060c27
 # Initialize the Flask application
 app = Flask(__name__)
 
