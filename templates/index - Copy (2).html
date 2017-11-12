@@ -44,19 +44,12 @@ h1.text-muted{text-align:center; font-size:24px; font-weight:700; color:#333; ma
 .barWrap{ overflow:hidden; margin-bottom:20px}
 input[type="file"]{ display:inline-block!important}
 form{ text-align:center}
-img {
-    display: block;
-    margin: auto;
-}
 </style>
   </head>
   <body>
+	<img src="b2c_logo.png"  alt="Biz2Credit" >
   <div id="wrapperAll">
-<<<<<<< HEAD
-<header><div class="wrapContent"><img src="images/b2c-logo-1.png" width="200" alt="Biz2Credit" height="53"></div></header>
-=======
-<header><div class="wrapContent"><img src="https://www.biz2credit.in/images/b2c-logo.png" alt="Biz2Credit" width="190" align="middle"></div></header>
->>>>>>> 6b118bd0d795b552900ead9cde30add6ac060c27
+<header><div class="wrapContent"></div></header>
 <div class="wrapContent">
 <div class="dotted">  
     <div class="container">
@@ -64,7 +57,7 @@ img {
         {% if img is defined %}
         <h1 class="text-muted">Image Output</h1>
         {% else %}
-        <h1 class="text-muted"><center>Upload Any Image File</center></h1>
+        <h1 class="text-muted">Upload Any Image File</h1>
         {% endif %}
       </div>
       <hr/>
@@ -76,7 +69,6 @@ img {
             <input type="file" name="file" value="Choose Your File"><br /><br />
             <div class="btnrow"><input type="submit" value="Upload"></div>
           </form><br><br>
-		  
           {% endif %}
       </div>
       </div>

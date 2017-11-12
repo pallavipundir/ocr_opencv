@@ -83,7 +83,7 @@ def ocr_default(img_file, preprocess) :
    
       # print ( key + "=> notfound"
     
-    if text==r'[0-9 ]{15}':
+    if text==text.find('[0-9 ]{15}'):
         regexArray = dict.fromkeys(['NAME','DOB/YEAR OF BIRTH','AADHAAR NUMBER','GENDER'])
         regexArray['NAME']=r'(WW R|INDIA EH F|[0-9]{9}|[0-9]{2,3}(::)?)(\s*)?\K[A-Z]+\s[A-Z]+|[A-Z ]+(?=WI\/)'
         regexArray['DOB/YEAR OF BIRTH']=r'[A-Z](\s*)?[0-9](\s*)?(\-|\/|I)[A-Z](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4}|[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9](\s*)?[0-9]{3}|(YEAR OF BIRTH)\s*(:)?\s*\K[0-9]+'
