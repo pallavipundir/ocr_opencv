@@ -82,8 +82,10 @@ def ocr_default(img_file, preprocess) :
 
    
       # print ( key + "=> notfound"
-    
-    if text==text.find('[0-9 ]{15}'):
+    m = regex.search('[0-9 ]{15}', newtest)
+    r= regex.search('(NUMBET|NUMBER|NUMHRAN|NU-OR)\s*\K[A-Z 0-9A-Z]{10,11}', newtest)
+    d= regex.search('(DL|[0-9]|[a-zA-Z]{6,8})\s*\K[A-Za-z0-9]{8,10}\s*(?=[0-9]+\s*.*)|NUMBER\s*\K[A-Z0-9]{8,11}(?=\s*.*)',newtest)
+    if m:
         regexArray = dict.fromkeys(['NAME','DOB/YEAR OF BIRTH','AADHAAR NUMBER','GENDER'])
         regexArray['NAME']=r'(WW R|INDIA EH F|[0-9]{9}|[0-9]{2,3}(::)?)(\s*)?\K[A-Z]+\s[A-Z]+|[A-Z ]+(?=WI\/)'
         regexArray['DOB/YEAR OF BIRTH']=r'[A-Z](\s*)?[0-9](\s*)?(\-|\/|I)[A-Z](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4}|[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9](\s*)?[0-9]{3}|(YEAR OF BIRTH)\s*(:)?\s*\K[0-9]+'
@@ -114,10 +116,11 @@ def ocr_default(img_file, preprocess) :
         #parsed_data['FATHER NAME']=re.sub('\s{2,}','',re.sub('','',parsed_data['FATHER NAME']))
         parsed_data['GENDER']=re.sub('\s{2,}','',re.sub('\/GQRRI','',parsed_data['GENDER']))
         #finalz='\n'.join("{}: {}".format(attrib, regx) for attrib, regx in parsed_data.items())
-        
+        finalz='\n'.join("{}: {}".format(attrib, regx) for attrib, regx in parsed_data.items())
+        return finalz
 
         
-    elif newtest==r'(NUMBET|NUMBER|NUMHRAN|NU-OR)\s*\K[A-Z 0-9A-Z]{10,11}':
+    elif r:
         regexArray = dict.fromkeys(['DOB','NAME','PAN NUMBER','FATHER NAME'])
         regexArray['NAME']=r'(INDIA EH F|INCOME TAX DEPARTMENT CI GOVT(.)? OF INDIA TV |INCOME TAX DEPARTMENT|INCOMETAX DEPARTMENT|GOVT(.)? OF INDIA|INCOME TAX DEPARTMENT GOVT(.)? OF INDIA|INCOME TAX DEPARTMENT (_\')? GOVT(.)? OF INDIA|NZMRMNXR)\s*\K[A-Z]+\s[A-Z]+'
         regexArray['DOB']=r'[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4}|[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9]\s*[0-9]{3}'
@@ -143,14 +146,21 @@ def ocr_default(img_file, preprocess) :
         parsed_data['PAN NUMBER']=re.sub('\s{1,}','',parsed_data['PAN NUMBER'])
         parsed_data['FATHER NAME']=re.sub('\s{2,}','',re.sub('[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4}|[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9]\s*[0-9]{3}','',parsed_data['FATHER NAME']))
         #finalz='\n'.join("{}: {}".format(attrib, regx) for attrib, regx in parsed_data.items())
-        
+        finalz='\n'.join("{}: {}".format(attrib, regx) for attrib, regx in parsed_data.items())
+        return finalz
 
-    else:
-        regexArray = dict.fromkeys(['DOB','NAME','PAN NUMBER','FATHER NAME'])
-        regexArray['NAME']=r'(INDIA EH F|INCOME TAX DEPARTMENT CI GOVT(.)? OF INDIA TV |INCOME TAX DEPARTMENT|INCOMETAX DEPARTMENT|GOVT(.)? OF INDIA|INCOME TAX DEPARTMENT GOVT(.)? OF INDIA|INCOME TAX DEPARTMENT (_\')? GOVT(.)? OF INDIA|NZMRMNXR)\s*\K[A-Z]+\s[A-Z]+'
-        regexArray['DOB']=r'[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4}|[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9]\s*[0-9]{3}'
-        regexArray['PAN NUMBER']=r'(NUMBET|NUMBER|NUMHRAN|NU-OR)\s*\K[A-Z 0-9A-Z]{10,11}'
-        regexArray['FATHER NAME']=r'[A-Z]{3,15}\s*[A-Z]+\s*([0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4})|[A-Z]{3,15}\s*[A-Z]+\s*[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9]\s*[0-9]{3}'
+    elif d:
+        regexArray = dict.fromkeys(['DL','CLASS','ISS','EXP','DOB','NAME','ADDRESS','GENDER'])
+        regexArray['DL'] = r'(DL|[0-9]|[a-zA-Z]{6,8})\s*\K[A-Za-z0-9]{8,10}\s*(?=[0-9]+\s*.*)|NUMBER\s*\K[A-Z0-9]{8,11}(?=\s*.*)'
+        regexArray['CLASS']=r'C(I|L)ASS(:)?\s*\K[A-Z](?=.*)'
+        regexArray['ISS']=r'(I|L)SS\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}|ISSUED\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)([0-9]{4}|[0-9\s]{4,5})'
+        regexArray['EXP']=r'(EXP|EXP(IR|U)ES)\s*\K[0-9 ]{2,}(\-|\/|L)[0-9]{2}(\-|\/)[0-9]{4}'
+        regexArray['DOB']=r'(DOB|DATE\s*OF\s*BIRTH|ONE|NOS)(:)?\s*\K[0-9]{2}(\-|\/|I)[0-9]{2}(\-|\/|I)[0-9]{4}'
+        regexArray['NAME']=r'(DOB|ONE)\s*[0-9]{2}(\/|\-)[0-9]{2}(\/|\-)[0-9]{4}\s*([0-9]{1,2})?\s*\K[A-Z]+\s*([A-Z]+)?\s*([0-9]{1,2}|\'|_)?\s*[A-Z ]+(?=\s*[0-9]{1}\s*)|[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}\s*[0-9]{0,2}\s*[A-Z]+\s*[0-9]{0,2}\s*[A-Z\s]+(?=\s*[0-9]{1,2}\s*[0-9]{2,5})|(ARIZONA|RIZON)\s*DRIVER\s*LICENSE\s*\K[A-Z\s]+(?=[0-9]{1,5})|(LN)\s*[a-zA-Z]+\s*(FN)\s*[a-zA-Z ]+'
+        #regexArray['FATHER NAME']=r'[a-zA-Z ]'
+        regexArray['ADDRESS']=r'(DOB|ONE|NOS|EXP)\s*[0-9]{2}(\/|\-)[0-9]{2}(\/|\-)[0-9]{4}\s*([0-9]{1,2})?\s*[A-Z]+\s*([A-Z]+)?\s*([0-9]{1,2}|\'|_)?\s*[A-Z ]+\s{1,2}([0-9]{1}\s{1,2})?\K[0-9]{3,6}\s*[A-Z]+(.*)TX\s*[0-9]{3,6}(\-[0-9]{4})?|((ARIZONA|RIZON)\s*DRIVER\s*LICENSE|ISSUED\s*[0-9]{2}\/[0-9]{2}\/[0-9]{4})\s*[A-Z\s]+\K[0-9]{3,6}.*AZ\s*[0-9]{3,6}(\s*\-[0-9]{2,4})?'
+        regexArray['GENDER']=r'(SEX)(:)?\s*(M|F)'
+
         parsed_data = {}        
         for (attrib, regx) in regexArray.iteritems():
             print "Debug: ", attrib, ">> ", regx
@@ -166,24 +176,29 @@ def ocr_default(img_file, preprocess) :
                 parsed_data[attrib] = "NA" 
 
 
-        parsed_data['NAME']=re.sub('\s{1,}', ' ', re.sub('[0-9\/_\']+', '', parsed_data['NAME']))
-        parsed_data['DOB']=re.sub('\s{1,2}','',re.sub('[A-Z]+','/',parsed_data['DOB']))
-        parsed_data['PAN NUMBER']=re.sub('\s{1,}','',parsed_data['PAN NUMBER'])
-        parsed_data['FATHER NAME']=re.sub('\s{2,}','',re.sub('[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|I|L)[0-9]{4}|[0-9](\s*)?[0-9](\s*)?(\-|\/|I)[0-9](\s*)?[0-9](\s*)?(\-|\/|1)[0-9]\s*[0-9]{3}','',parsed_data['FATHER NAME']))
-        #finalz='\n'.joi
-                    
+        parsed_data['NAME'] = re.sub('\s{2,}', ' ', re.sub('[0-9\/_]+', '', parsed_data['NAME']))
+        parsed_data['DL']=re.sub('\s{2,}','',re.sub('[a-z]+','',parsed_data['DL']))
+        parsed_data['ISS']=re.sub('\s{2,}','',re.sub('[A-Z]+','',parsed_data['ISS']))
+        parsed_data['EXP']=re.sub('\s{2,}','',re.sub('[A-Z]+','/',parsed_data['EXP']))
+        parsed_data['DOB']=re.sub('\s{2,}','',re.sub('[A-Z]+','/',parsed_data['DOB']))
+        parsed_data['GENDER']=re.sub('\s{1,}','',re.sub('[SEX(:)?]+','',parsed_data['GENDER']))
+        
+        finalz='\n'.join("{}: {}".format(attrib, regx) for attrib, regx in parsed_data.items())            
+        return finalz
 
-
+    else:
+        return "Enter the clear image"
 
 
    
     #print()
     #f.close()
-    finalz='\n'.join("{}: {}".format(attrib, regx) for attrib, regx in parsed_data.items())
+        
     #file = open("C:/Users/pallavi.pundir/Documents/selected_images_text.txt","w") 
     #file.write(finalz) 
     #file.close()
     #cv2.imshow("", img_file)
     #cv2.imshow("Person Identity", crop_img)
     #cv2.waitKey(0)
-    return finalz
+        
+    

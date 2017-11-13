@@ -117,7 +117,7 @@ def ocr_default(img_file, preprocess) :
     #return text
     text1=text.split() 
     newtest = " ".join(str(x) for x in text1)
-    #return newtest
+    return newtest
     #print("length is",len(text1))
     #For appending or store the results 
     #return newtest
@@ -288,5 +288,5 @@ def ocr_default(img_file, preprocess) :
     #cv2.imshow("", img_file)
     #cv2.imshow("Person Identity", crop_img)
     #cv2.waitKey(0)
-    return finalz
+   # return finalz
 
