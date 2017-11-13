@@ -151,7 +151,7 @@ def ocr_default(img_file, preprocess) :
 
     elif d:
         regexArray = dict.fromkeys(['DL','CLASS','ISS','EXP','DOB','NAME','ADDRESS','GENDER'])
-        regexArray['DL'] = r'(DL|[0-9]|[a-zA-Z]{6,8})\s*\K[A-Za-z0-9]{8,10}\s*(?=[0-9]+\s*.*)|NUMBER\s*\K[A-Z0-9]{8,11}(?=\s*.*)'
+        regexArray['DL'] = r'(DL|MDL)\s*\K[A-Z0-9]{8,10}\s*|NUMBER\s*\K[A-Z0-9]{8,11}'
         regexArray['CLASS']=r'C(I|L)ASS(:)?\s*\K[A-Z](?=.*)'
         regexArray['ISS']=r'(I|L)SS\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}|ISSUED\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)([0-9]{4}|[0-9\s]{4,5})'
         regexArray['EXP']=r'(EXP|EXP(IR|U)ES)\s*\K[0-9 ]{2,}(\-|\/|L)[0-9]{2}(\-|\/)[0-9]{4}'
