@@ -4,7 +4,7 @@
 import os , datetime , logging
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from werkzeug import secure_filename
-from libs.test import ocr_default
+from libs.aadhar import ocr_aadhar
 
 # Initialize the Flask application
 app = Flask(__name__)
@@ -33,7 +33,7 @@ def upload():
 
         files = app.config['UPLOAD_FOLDER']+'/'+filename
         #text = ocr_default(files,"thresh").encode('utf-8')
-        text = ocr_default(files,"thresh")
+        text = ocr_aadhar(files,"thresh")
         
         imgo = {
             'src': 'images/'+filename,
