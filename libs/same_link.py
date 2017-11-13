@@ -82,9 +82,9 @@ def ocr_default(img_file, preprocess) :
 
    
       # print ( key + "=> notfound"
-    m = regex.search('[0-9 ]{15}', newtest)
+    m = regex.search('((T|I|\/|\/ )(/s*)?[MALE|FEMALE ]+)(=?)[0-9 ]{15}', newtest)
     r= regex.search('(PERMANENT ACCOUNT NUMBET|PERMANENT ACCOUNT NUMBER|PERMANENT ACCOUNT NUMHRAN|PERMANENT ACCOUNT NU-OR)\s*\K[A-Z 0-9A-Z]{10,11}', newtest)
-    d= regex.search('(DL|[0-9]|[a-zA-Z]{6,8})\s*\K[A-Za-z0-9]{8,10}\s*(?=[0-9]+\s*.*)|NUMBER\s*\K[A-Z0-9]{8,11}(?=\s*.*)',newtest)
+    d= regex.search('(DL|MDL)\s*\K[A-Z0-9]{8,10}\s*|NUMBER\s*\K[A-Z0-9]{8,11}',newtest)
     if m:
         regexArray = dict.fromkeys(['NAME','DOB/YEAR OF BIRTH','AADHAAR NUMBER','GENDER'])
         regexArray['NAME']=r'(WW R|INDIA EH F|[0-9]{9}|[0-9]{2,3}(::)?)(\s*)?\K[A-Z]+\s[A-Z]+|[A-Z ]+(?=WI\/)'
