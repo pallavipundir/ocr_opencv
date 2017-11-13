@@ -73,7 +73,7 @@ def ocr_default(img_file, preprocess) :
 
     m = regex.search('((T|I|\/|\/ )(/s*)?[MALE|FEMALE ]+)(=?)\K[0-9 ]{15}', newtest)
     r= regex.search('(PERMANENT ACCOUNT NUMBET|PERMANENT ACCOUNT NUMBER|PERMANENT ACCOUNT NUMHRAN|PERMANENT ACCOUNT NU-OR)\s*\K[A-Z 0-9A-Z]{10,11}', newtest)
-    d= regex.search('(DL|MDL)\s*[A-Z0-9]{8,10}\s*|NUMBER\s*[A-Z]{1}[0-9]{8,11}',newtest)
+    d= regex.search('(DL|MDL)\s*\K[A-Z0-9]{8,10}\s*|NUMBER\s*\K[A-Z0-9]{8,11}',newtest)
     if m:
         regexArray = dict.fromkeys(['NAME','DOB/YEAR OF BIRTH','AADHAAR NUMBER','GENDER'])
         regexArray['NAME']=r'(WW R|MEW|WW R)(\s*)?\K[A-Z]+\s[A-Z]+|[A-Z ]+(?=WI\/)'
@@ -140,7 +140,7 @@ def ocr_default(img_file, preprocess) :
 
     elif d:
         regexArray = dict.fromkeys(['DL','CLASS','ISS','EXP','DOB','NAME','ADDRESS','GENDER'])
-        regexArray['DL'] = r'(DL|MDL)\s*[A-Z0-9]{8,10}\s*|NUMBER\s*[A-Z]{1}[0-9]{8,11}'
+        regexArray['DL'] = r'(DL|MDL)\s*\K[A-Z0-9]{8,10}\s*|NUMBER\s*\K[A-Z0-9]{8,11}'
         regexArray['CLASS']=r'C(I|L)ASS(:)?\s*\K[A-Z](?=.*)'
         regexArray['ISS']=r'(I|L)SS\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)[0-9]{4}|ISSUED\s*\K[0-9]{2}(\-|\/)[0-9]{2}(\-|\/)([0-9]{4}|[0-9\s]{4,5})'
         regexArray['EXP']=r'(EXP|EXP(IR|U)ES)\s*\K[0-9 ]{2,}(\-|\/|L)[0-9]{2}(\-|\/)[0-9]{4}'
