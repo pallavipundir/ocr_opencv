@@ -82,7 +82,7 @@ def ocr_default(img_file, preprocess) :
 
    
       # print ( key + "=> notfound"
-    m = regex.search('((T|I|\/|\/ )(/s*)?[MALE|FEMALE ]+)(=?)[0-9 ]{15}', newtest)
+    m = regex.search('((T|I|\/|\/ )(/s*)?[MALE|FEMALE ]+)(=?)\K[0-9 ]{15}', newtest)
     r= regex.search('(PERMANENT ACCOUNT NUMBET|PERMANENT ACCOUNT NUMBER|PERMANENT ACCOUNT NUMHRAN|PERMANENT ACCOUNT NU-OR)\s*\K[A-Z 0-9A-Z]{10,11}', newtest)
     d= regex.search('(DL|MDL)\s*\K[A-Z0-9]{8,10}\s*|NUMBER\s*\K[A-Z0-9]{8,11}',newtest)
     if m:
