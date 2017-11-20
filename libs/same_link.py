@@ -52,7 +52,7 @@ def ocr_default(img_file, preprocess) :
     cv2.imwrite("E:/licence/2.png",custom)
 
     # load the image as a PIL/Pillow image, apply OCR, and then delete the temporary file #
-    text = pytesseract.image_to_string(Image.open(filename)).upper()
+    text = pytesseract.image_to_string(Image.open(filename),lang="eng").upper()
    
     
     text = regex.sub('[^a-zA-Z0-9\s\d\w\b\t\n:/\-\'^.,*\/]*','', text)
