@@ -9,8 +9,8 @@ import dateutil
 import subprocess
 #from PIL import ImageEnhance
 #from scipy import misc
-#from pathlib import Path
-
+from pathlib import Path
+p = Path("pythonw.exe").resolve()
 # Load image, resize width and height & then convert to grayscale
 img_file="/home/pallavi/Desktop/adh1.jpg"
 image = cv2.imread(img_file)
