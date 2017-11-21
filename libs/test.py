@@ -85,7 +85,7 @@ def ocr_default(img_file, preprocess) :
     custom=cv2.filter2D(rgb_dst,-1,kernel)
     #kernel1 = np.ones((2,2),np.uint8)
     #dilation = cv2.erode(custom,kernel1,iterations =1)
-    #cv2.imwrite("E:/licence/test8.jpg",dilation)
+    cv2.imwrite("/home/pallavi/E/licence/ret4.jpg",custom)
     
     #equ = cv2.equalizeHist(custom)
     #cv2.imwrite("E:/licence/6.jpg",custom)
@@ -113,7 +113,7 @@ def ocr_default(img_file, preprocess) :
     text = pytesseract.image_to_string(Image.open(filename)).upper()
    
     
-    text = regex.sub('[^a-zA-Z0-9\s\d\w\b\t\n:/\-\'^.,*\/]*','', text)
+    text = regex.sub('[^a-zA-Z\s\d\w\b\t\n:\/.,*]*','', text)
     #return text
     text1=text.split() 
     newtest = " ".join(str(x) for x in text1)
