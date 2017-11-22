@@ -86,9 +86,11 @@ def ocr_default(img_file, preprocess) :
     #kernel1 = np.ones((2,2),np.uint8)
     #dilation = cv2.erode(custom,kernel1,iterations =1)
     cv2.imwrite("/home/pallavi/E/licence/ret4.jpg",custom)
-    
+    kernel = np.ones((2,2),np.uint8)
+    erosion = cv2.erode(custom,kernel,iterations =1)
     #equ = cv2.equalizeHist(custom)
     #cv2.imwrite("E:/licence/6.jpg",custom)
+    cv2.imwrite("/home/pallavi/E/licence/erode.jpg", erosion)
     
     # write the grayscale image to disk as a temporary file so we can apply OCR to it #
 
@@ -105,10 +107,8 @@ def ocr_default(img_file, preprocess) :
     #
     # cv2.imwrite("E:/licence/test10.jpg",bilateral)
      # write the grayscale image to disk as a temporary file so we can apply OCR to it #
-    filename = "{}.png".format(os.getpid())
-    cv2.imwrite(filename, custom)
-    cv2.imwrite("E:/licence/2.png",custom)
-
+    ffilename = "{}.png".format(os.getpid())
+    cv2.imwrite(filename, erosion)
     # load the image as a PIL/Pillow image, apply OCR, and then delete the temporary file #
     text = pytesseract.image_to_string(Image.open(filename)).upper()
    
