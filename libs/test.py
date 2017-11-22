@@ -114,12 +114,12 @@ def ocr_default(img_file, preprocess) :
    
     
     #text = regex.sub('[^a-zA-Z\s\d\w\b\t\n:\/.]*','', text)
-    #text=regex.sub('[^A-Za-z0-9\s*\n\t\b\d\/-]+', '', text)
+    text=regex.sub('[^A-Za-z0-9\s*\n\t\b\d\/-]+', '', text)
     #return text
     #‘->\ S / + ( «F! L 60 : 1 4 ' \ A. 2 C S ,..\. ® > S _ 
     #text=re.sub(r'[?|$|.|!|/|\/|=|-|>|+|<<|@|_|,]',r'',text) 
     text1=text.split() 
-    newtest = " ".join(str(x) for x in text1).strip('"{}>>')
+    newtest = " ".join(str(x) for x in text1)
    
     return newtest
     #print("length is",len(text1))
