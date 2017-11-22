@@ -83,8 +83,8 @@ def ocr_default(img_file, preprocess) :
     boxFilter=np.ones((5,5),np.float32)/91.0 # default is 81.0 Blurs an image using the box filter.
     kernel=kernel-boxFilter
     custom=cv2.filter2D(rgb_dst,-1,kernel)
-    kernel1 = np.ones((2,2),np.uint8)
-    dilation = cv2.erode(custom,kernel1,iterations =1)
+    #kernel1 = np.ones((2,2),np.uint8)
+    #dilation = cv2.erode(custom,kernel1,iterations =1)
     cv2.imwrite("/home/pallavi/E/licence/ret4.jpg",custom)
     
     #equ = cv2.equalizeHist(custom)
@@ -106,7 +106,7 @@ def ocr_default(img_file, preprocess) :
     # cv2.imwrite("E:/licence/test10.jpg",bilateral)
      # write the grayscale image to disk as a temporary file so we can apply OCR to it #
     filename = "{}.png".format(os.getpid())
-    cv2.imwrite(filename, dilation)
+    cv2.imwrite(filename, custom)
     #cv2.imwrite("E:/licence/2.png",custom)
 
     # load the image as a PIL/Pillow image, apply OCR, and then delete the temporary file #
